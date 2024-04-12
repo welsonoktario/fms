@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('maintentance_types', function (Blueprint $table) {
+        Schema::create('maintenance_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->enum('duration_type', ['days', 'weeks', 'months', 'years']);
