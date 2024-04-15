@@ -6,8 +6,10 @@ use App\Http\Controllers\UnitController as thisUnitController;
 use App\Http\Controllers\DriverController as thisDriverController;
 use App\Http\Controllers\MechanicController as thisMechanicController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
 });
 Route::resource('projects', thisProjectController::class);
 Route::resource('units', thisUnitController::class);
