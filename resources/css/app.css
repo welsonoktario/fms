@@ -1,3 +1,46 @@
+@import url("data-tables.css");
+@import "@fortawesome/fontawesome-free/css/fontawesome.css";
+@import "@fortawesome/fontawesome-free/css/regular.css";
+@import "@fortawesome/fontawesome-free/css/solid.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    .dt-container .dt-length-select {
+        margin-right: 0.5em;
+    }
+    .dt-container .dt-search {
+        margin-left: 0.5em;
+    }
+
+    #dt-length-0 {
+        @apply select select-sm select-bordered h-auto;
+    }
+    #dt-search-0 {
+        @apply input input-sm input-bordered ml-2;
+    }
+}
+
+.dt-layout-row:not(.dt-layout-table) {
+    @apply flex justify-between items-center w-full first:mb-4 last:mt-4;
+}
+button.dt-paging-button {
+    @apply btn btn-sm border-none inline-block ml-1;
+}
+button.dt-paging-button.first {
+    @apply btn-ghost aria-disabled:btn-disabled aria-disabled:cursor-not-allowed aria-disabled:text-neutral-400;
+}
+button.dt-paging-button.last {
+    @apply btn-ghost aria-disabled:btn-disabled aria-disabled:cursor-not-allowed aria-disabled:text-neutral-400;
+}
+button.dt-paging-button.previous {
+    @apply btn-ghost aria-disabled:btn-disabled aria-disabled:cursor-not-allowed aria-disabled:text-neutral-400;
+}
+button.dt-paging-button.next {
+    @apply btn-ghost aria-disabled:btn-disabled aria-disabled:cursor-not-allowed aria-disabled:text-neutral-400;
+}
+button.dt-paging-button.current {
+    @apply btn-primary;
+}

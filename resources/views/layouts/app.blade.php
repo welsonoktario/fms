@@ -23,15 +23,16 @@
   <main class="drawer md:drawer-open">
     <input id="drawer" type="checkbox" class="drawer-toggle" />
     <x-layouts.sidebar />
-    <div class="drawer-content">
+    <div class="drawer-content flex flex-col">
       <x-layouts.navbar />
-      <div class="p-4">
+      <div class="p-4 bg-base-200 flex-1">
         {{ $slot }}
       </div>
     </div>
   </main>
 
   @vite('resources/js/app.js')
+  <script src="https://cdn.datatables.net/2.0.4/js/dataTables.js" type="module"></script>
   @if (isset($scripts))
     {{ $scripts }}
   @endif
