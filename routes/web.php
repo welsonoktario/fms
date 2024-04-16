@@ -9,7 +9,7 @@ use App\Http\Controllers\MechanicController as thisMechanicController;
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('welcome');
-    });
+    })->name('dashboard');
 });
 Route::resource('projects', thisProjectController::class);
 Route::resource('units', thisUnitController::class);
