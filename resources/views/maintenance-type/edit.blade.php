@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.app title="Edit Maintenance Type">
   <div class="flex gap-x-4 items-center">
     <a href="{{ route('maintenance-types.index') }}" class="btn btn-sm btn-ghost">
       <i class="fa-solid fa-chevron-left"></i>

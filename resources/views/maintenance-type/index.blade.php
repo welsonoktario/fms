@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.app title="Maintenance Types">
   <div class="flex justify-between w-full items-center">
     <h1 class="text text-xl font-semibold">Maintenance Types</h1>
     <a href="{{ route('maintenance-types.create') }}" class="btn btn-sm btn-primary">Add</a>
