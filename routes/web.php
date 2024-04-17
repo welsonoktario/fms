@@ -1,19 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProjectController as thisProjectController;
-use App\Http\Controllers\UnitController as thisUnitController;
-use App\Http\Controllers\DriverController as thisDriverController;
-use App\Http\Controllers\MechanicController as thisMechanicController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\DriverController;
+use App\Http\Controllers\MaintenanceTypeController;
+use App\Http\Controllers\MechanicController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('dashboard');
 });
-Route::resource('projects', thisProjectController::class);
-Route::resource('units', thisUnitController::class);
-Route::resource('drivers', thisDriverController::class);
-Route::resource('mechanics', thisMechanicController::class);
+Route::resource('projects', ProjectController::class);
+Route::resource('maintenance-types', MaintenanceTypeController::class);
+Route::resource('units', UnitController::class);
+Route::resource('drivers', DriverController::class);
+Route::resource('mechanics', MechanicController::class);
 
 require __DIR__.'/auth.php';
