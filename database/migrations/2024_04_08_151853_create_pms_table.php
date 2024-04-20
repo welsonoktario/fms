@@ -23,6 +23,7 @@ return new class () extends Migration {
             $table->dateTime('next_maintenance_date');
             $table->string('note')
                 ->nullable();
+            $table->enum('status', ['on progress', 'cancel', 'service']);
             $table->timestamps();
         });
     }
