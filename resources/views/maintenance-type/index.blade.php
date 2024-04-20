@@ -35,7 +35,7 @@
     <script type="module">
       $(function() {
         $('#table').DataTable({
-          lengthMenu: [1, 10, 25, 50, 100],
+          // lengthMenu: [1, 10, 25, 50, 100],
           columnDefs: [{
             orderable: false,
             searchable: false,

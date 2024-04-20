@@ -7,6 +7,9 @@
     <li><a href="{{ route('projects.index') }}">Project</a></li>
     <li><a href="{{ route('drivers.index') }}">Driver</a></li>
     <li><a href="{{ route('mechanics.index') }}">Mechanic</a></li>
+    <li><a href="{{route('suppliers.index')}}">Suppliers</a></li>
+    <li><a href="{{route('spareparts.index')}}">Suppliers</a></li>
+    <li><a href="{{route('submissions.index')}}">Submission</a></li>
     <li><a>Equipment</a></li>
     <li><a>PO</a></li>
   </ul>
