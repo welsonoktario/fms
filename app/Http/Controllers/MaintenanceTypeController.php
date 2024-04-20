@@ -30,15 +30,13 @@ class MaintenanceTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        MaintenanceType::create([
+            'name' => $request->name,
+            'duration_type' => $request->duration_type,
+            'duration_value' => $request->duration_value,
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('maintenance-types.index')->with('success', 'Maintenance Type created successfully.');
     }
 
     /**
@@ -56,7 +54,14 @@ class MaintenanceTypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $mt = MaintenanceType::findOrFail($id);
+        $mt->update([
+            'name' => $request->name,
+            'duration_type' => $request->duration_type,
+            'duration_value' => $request->duration_value,
+        ]);
+
+        return redirect()->route('maintenance-types.index')->with('success', 'Maintenance Type updated successfully.');
     }
 
     /**

@@ -25,9 +25,15 @@
   <main class="drawer md:drawer-open">
     <input id="drawer" type="checkbox" class="drawer-toggle" />
     <x-layouts.sidebar />
-    <div class="drawer-content flex flex-col">
+    <div class="drawer-content flex flex-col h-screen overflow-y-auto">
       <x-layouts.navbar />
       <div class="p-4 bg-base-200 flex-1">
+        @if (session()->has('success'))
+          <div role="alert" class="alert alert-success !text-base-100 mb-6">
+            <i class="fa-regular fa-circle-check"></i>
+            <span>{{ session()->get('success') }}</span>
+          </div>
+        @endif
         {{ $slot }}
       </div>
     </div>

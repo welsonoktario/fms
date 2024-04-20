@@ -143,13 +143,6 @@ table.dataTable thead > tr > td.dt-orderable-asc,
 table.dataTable thead > tr > td.dt-orderable-desc {
     cursor: pointer;
 }
-table.dataTable thead > tr > th.dt-orderable-asc:hover,
-table.dataTable thead > tr > th.dt-orderable-desc:hover,
-table.dataTable thead > tr > td.dt-orderable-asc:hover,
-table.dataTable thead > tr > td.dt-orderable-desc:hover {
-    outline: 2px solid rgba(0, 0, 0, 0.05);
-    outline-offset: -2px;
-}
 table.dataTable thead > tr > th.dt-ordering-asc span.dt-column-order:before,
 table.dataTable thead > tr > th.dt-ordering-desc span.dt-column-order:after,
 table.dataTable thead > tr > td.dt-ordering-asc span.dt-column-order:before,
@@ -186,33 +179,6 @@ table.dataTable thead > tr > td:active {
 div.dt-scroll-body > table.dataTable > thead > tr > th,
 div.dt-scroll-body > table.dataTable > thead > tr > td {
     overflow: hidden;
-}
-
-:root.dark table.dataTable thead > tr > th.dt-orderable-asc:hover,
-:root.dark table.dataTable thead > tr > th.dt-orderable-desc:hover,
-:root.dark table.dataTable thead > tr > td.dt-orderable-asc:hover,
-:root.dark table.dataTable thead > tr > td.dt-orderable-desc:hover,
-:root[data-bs-theme="dark"]
-    table.dataTable
-    thead
-    > tr
-    > th.dt-orderable-asc:hover,
-:root[data-bs-theme="dark"]
-    table.dataTable
-    thead
-    > tr
-    > th.dt-orderable-desc:hover,
-:root[data-bs-theme="dark"]
-    table.dataTable
-    thead
-    > tr
-    > td.dt-orderable-asc:hover,
-:root[data-bs-theme="dark"]
-    table.dataTable
-    thead
-    > tr
-    > td.dt-orderable-desc:hover {
-    outline: 2px solid rgba(255, 255, 255, 0.05);
 }
 
 div.dt-processing {

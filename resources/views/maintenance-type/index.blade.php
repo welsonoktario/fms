@@ -4,38 +4,49 @@
     <a href="{{ route('maintenance-types.create') }}" class="btn btn-sm btn-primary">Add</a>
   </div>
 
-  <div class="mt-4 rounded-lg p-4 shadow overflow-x-auto bg-base-100">
-    <table id="table" class="table table-auto w-full">
+  <x-container class="overflow-x-auto">
+    <table id="table" class="table table-auto !w-full">
       <thead>
         <tr>
-          <th>No.</th>
+          <th class="w-5">No.</th>
           <th>Name</th>
           <th>Duration</th>
-          <th></th>
+          <th class="!w-40"></th>
         </tr>
       </thead>
       <tbody>
         @foreach ($mts as $mt)
           <tr class="hover">
-            <td>{{ $loop->iteration }}</td>
+            <td class="!text-center">{{ $loop->iteration }}</td>
             <td>{{ $mt->name }}</td>
             <td>{{ $mt->duration_value }} {{ $mt->duration_type }}</td>
-            <td>
-              <a href="{{ route('maintenance-types.edit', $mt->id) }}" class="btn btn-sm btn-ghost">
-                Edit
-              </a>
+            <td class="!text-center">
+              <div class="flex items-center gap-x-3">
+                <a href="{{ route('maintenance-types.edit', $mt->id) }}" class="btn btn-sm btn-ghost">
+                  <i class="fa-regular fa-edit"></i>
+                  Edit
+                </a>
+                <form action="{{ route('maintenance-types.destroy', $mt->id) }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+
+                  <buton type="submit" class="btn btn-sm btn-ghost-danger">
+                    <i class="fa-regular fa-trash-can"></i>
+                    Delete
+                  </buton>
+                </form>
+              </div>
             </td>
           </tr>
         @endforeach
       </tbody>
     </table>
-  </div>
+  </x-container>
 
   <x-slot name="scripts">
     <script type="module">
       $(function() {
         $('#table').DataTable({
-          lengthMenu: [1, 10, 25, 50, 100],
           columnDefs: [{
             orderable: false,
             searchable: false,
