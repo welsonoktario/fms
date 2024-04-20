@@ -10,18 +10,11 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('spareparts', function (Blueprint $table) {
-            $table->id();
+        Schema::create('sparepart_category_brands', function (Blueprint $table) {
             $table->foreignId('sparepart_category_id')
-                ->constrained()
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->constrained();
             $table->foreignId('sparepart_brand_id')
-                ->constrained()
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-            $table->string('name');
-            $table->timestamps();
+                ->constrained();
         });
     }
 
@@ -30,6 +23,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('spareparts');
+        Schema::dropIfExists('sparepart_category_brands');
     }
 };
