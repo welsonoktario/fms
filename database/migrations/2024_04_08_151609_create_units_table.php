@@ -19,13 +19,18 @@ return new class () extends Migration {
                 ->constrained();
             $table->foreignId('asset_type_id')
                 ->constrained();
-            $table->string('no_asset');
-            $table->string('name');
+            $table->string('year');
             $table->string('plate');
             $table->string('model');
             $table->string('meter');
             $table->string('colour');
+            $table->string('type');
             $table->string('serial');
+            $table->string('tire_size_front');
+            $table->string('tire_size_rear');
+            $table->string('tire_pressure_front');
+            $table->string('tire_pressure_rear');
+            $table->enum('status',['Ready','Not Ready']);
             $table->date('date_pajak');
             $table->string('image_unit');
             $table->longText('description');

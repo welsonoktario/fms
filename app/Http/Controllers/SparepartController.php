@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Driver;
 use Illuminate\Http\Request;
 
-class DriverController extends Controller
+class SparepartController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $drivers = Driver::all();
-        return view('driver.index',compact('drivers'));
+        //
     }
 
     /**
@@ -21,8 +19,7 @@ class DriverController extends Controller
      */
     public function create()
     {
-        $drivers = Driver::all();
-        return view('driver.create',compact('drivers'));
+        //
     }
 
     /**
@@ -30,10 +27,7 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        Driver::create([
-            'name' => $request->name,
-        ]);
-        return redirect()->route('drivers.index');
+        //
     }
 
     /**
