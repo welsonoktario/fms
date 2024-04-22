@@ -10,16 +10,23 @@
     </div>
   </div>
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl">daisyUI</a>
+    {{-- <a href="/" class="btn btn-ghost text-xl">Fleet Management System</a> --}}
+    <x-breadcrumbs />
   </div>
-  <div class="flex-none">
-    <button class="btn btn-square btn-ghost">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-        class="inline-block w-5 h-5 stroke-current">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
-        </path>
-      </svg>
+  <div class="dropdown dropdown-end flex-none">
+    <button class="btn btn-square btn-ghost" tabindex="0">
+      <i class="fa-solid fa-ellipsis fa-lg"></i>
     </button>
+    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+      <li>
+        <form class="hidden" id="logoutForm" action="{{ route('logout') }}" method="post">
+          @csrf
+        </form>
+        <button type="submit" form="logoutForm">
+          <i class="fa-solid fa-sign-out-alt mr-2"></i>
+          Logout
+        </button>
+      </li>
+    </ul>
   </div>
 </div>

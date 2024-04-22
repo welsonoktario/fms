@@ -21,8 +21,18 @@
     #dt-search-0 {
         @apply input input-sm input-bordered ml-2;
     }
+
+    .btn-ghost-danger {
+        @apply btn-ghost !bg-transparent !border-none !shadow-none hover:!bg-error;
+    }
 }
 
+div.dt-container div.dt-layout-row.dt-layout-table {
+    @apply flex;
+}
+.dt-layout-cell {
+    @apply flex-1;
+}
 .dt-layout-row:not(.dt-layout-table) {
     @apply flex justify-between items-center w-full first:mb-4 last:mt-4;
 }
@@ -43,4 +53,13 @@ button.dt-paging-button.next {
 }
 button.dt-paging-button.current {
     @apply btn-primary;
+}
+.dt-orderable-asc.dt-orderable-desc {
+    @apply table-cell border-none btn btn-sm btn-ghost text-base-content;
+}
+tr[role="row"] {
+    @apply border-b-2 border-base-300;
+}
+.dt-orderable-none {
+    @apply !border-none;
 }
