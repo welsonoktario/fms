@@ -63,3 +63,11 @@ tr[role="row"] {
 .dt-orderable-none {
     @apply !border-none;
 }
+.alert-error {
+    color: red;
+    border: 1px solid red;
+    background-color: #fdd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}

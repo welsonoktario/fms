@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sparepart;
+use App\Models\SparepartCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SparepartController extends Controller
+class SparepartCategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $spareparts = DB::table('spareparts')->get();
         $sparepart_categories = DB::table('sparepart_categories')->get();
-        $sparepart_brands = DB::table('sparepart_brands')->get();
-        return view('sparepart.index', compact('spareparts', 'sparepart_categories', 'sparepart_brands'));
+        return view('sparepart_categorie.index',compact('sparepart_categories'));
     }
 
     /**
@@ -24,9 +22,8 @@ class SparepartController extends Controller
      */
     public function create()
     {
-        $spareparts = DB::table('spareparts')->get();
         $sparepart_categories = DB::table('sparepart_categories')->get();
-        return view('sparepart.create', compact('spareparts','sparepart_categories'));
+        return view('sparepart_categorie.create',compact('sparepart_categories'));
     }
 
     /**
@@ -34,12 +31,10 @@ class SparepartController extends Controller
      */
     public function store(Request $request)
     {
-        $spareparts = Sparepart::create([
+        $sparepart_categories = SparepartCategory::create([
             'name' => $request->name,
-            'sparepart_categorie' => $request->sparepart_categorie,
-            'sparepart_brand' => $request->sparepart_brand,
         ]);
-        return redirect()->route('spareparts.index', compact('spareparts'));
+        return redirect()->route('sparepart_categories.index',compact('sparepart_categories'));
     }
 
     /**

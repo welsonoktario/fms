@@ -11,7 +11,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('sparepart_brand_suppliers', function (Blueprint $table) {
-            $table->foreignId('sparepart_supplier_id')
+            $table->foreignId('supplier_id')
                 ->constrained();
             $table->foreignId('sparepart_brand_id')
                 ->constrained();

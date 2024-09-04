@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Driver;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DriverController extends Controller
 {
@@ -28,13 +29,47 @@ class DriverController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+        // public function store(Request $request)
+        // {
+        //     $validated = $request->validate([
+        //         'name' => 'required|string|max:255',
+        //         'nik' => 'required|string|max:255',
+        //     ]);
+
+        //     $driver = Driver::create([
+        //         'name' => $validated['name'],
+        //         'nik' => $validated['nik'],
+        //     ]);
+        //     $barcodeLink = route('show', $driver->nik);
+        //     $driver->update(['link_barcode' => $barcodeLink]);
+
+        //     return redirect()->route('drivers.index');
+        // }
     public function store(Request $request)
-    {
-        Driver::create([
-            'name' => $request->name,
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'nik' => 'required|string|max:255|unique:drivers,nik',
+        'phone_number' => 'required|string|max:255|unique:drivers,phone_number',
+        'provider' => 'required|string|in:TELKOMSEL,INDOSAT,XL AXIATA, SMARTFREN',
+        'status' => 'required|string|in:ACTIVE,NOT ACTIVE',
+    ]);
+    try{
+        $drivers = Driver::create([
+            'name' => $validated['name'],
+            'nik' => $validated['nik'],
+            'phone_number' => $validated['phone_number'],
+            'provider' => $validated['provider'],
+            'status' => $validated['status'],
         ]);
-        return redirect()->route('drivers.index');
-    }
+        // dd($drivers);
+        $barcodeLink = route('show', $drivers->nik);
+        $drivers->update(['link_barcode' => $barcodeLink]);
+        return redirect()->route('drivers.index')->with('success', 'Driver created successfully.');
+    } catch (\Exception $e) {
+        return redirect()->route('drivers.index')->with('error', 'An error occurred: ' . $e->getMessage());
+}
+}
 
     /**
      * Display the specified resource.
@@ -67,4 +102,16 @@ class DriverController extends Controller
     {
         //
     }
+    public function generate($nik)
+    {
+        $drivers = Driver::firstWhere('nik',$nik);
+        if (!$drivers->image_barcode);
+        {
+            $filename = public_path("img") . "/qr/{$nik}.svg";
+            $url = asset('img/qr/' . "{$nik}.svg");
+            $qrcode = QrCode::size(400)->generate($drivers->link_barcode, $filename);
+            Driver::where('id',$drivers->id)->update(['image_barcode'=>$url]);
+        }
+    return back();
+}
 }

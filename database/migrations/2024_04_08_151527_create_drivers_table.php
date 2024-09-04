@@ -12,8 +12,13 @@ return new class () extends Migration {
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->string('name')
-                ->unique();
+            $table->string('nik')->unique();
+            $table->string('name');
+            $table->string('phone_number');
+            $table->enum('provider',['TELKOMSEL','INDOSAT','XL AXIATA','SMARTFREN']);
+            $table->enum('status',['ACTIVE','NOT ACTIVE']);
+            $table->string('link_barcode')->nullable();
+            $table->string('image_barcode')->nullable();
             $table->timestamps();
         });
     }

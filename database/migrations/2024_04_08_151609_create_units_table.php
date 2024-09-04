@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -12,13 +12,19 @@ return new class () extends Migration {
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
+            $table->string('asset_code')->unique();
             $table->foreignId('project_id')
                 ->constrained();
-            $table->foreignId('driver_id')
-                ->nullable()
-                ->constrained();
-            $table->foreignId('asset_type_id')
-                ->constrained();
+            // $table->foreignId('driver_id')
+            //     ->nullable()
+            //     ->constrained();
+            // $table->foreignId('asset_type_id')
+            //     ->constrained();
+            // $table->string('no_asset');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->string('year');
             $table->string('plate');
             $table->string('model');
@@ -30,10 +36,12 @@ return new class () extends Migration {
             $table->string('tire_size_rear');
             $table->string('tire_pressure_front');
             $table->string('tire_pressure_rear');
-            $table->enum('status',['Ready','Not Ready']);
-            $table->date('date_pajak');
+            $table->enum('status', ['READY', 'NOT READY']);
+            $table->date('unit_tax_duedate');
             $table->string('image_unit');
             $table->longText('description');
+            $table->string('link_barcode')->nullable();
+            $table->string('image_barcode')->nullable();
             $table->timestamps();
         });
     }

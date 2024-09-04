@@ -1,27 +1,21 @@
-<x-layouts.app title="Units">
+<x-layouts.app title="sparepart">
   <div class="flex justify-between w-full items-center">
-    <h1 class="text text-xl font-semibold">Units</h1>
-    <a href="{{ route('units.create') }}" class="btn btn-sm btn-primary">Add</a>
+    <h1 class="text text-xl font-semibold">Brand Sparepart</h1>
+    <a href="{{ route('sparepart_brands.create') }}" class="btn btn-sm btn-primary">Add</a>
   </div>
   <div class="mt-4 rounded-lg p-4 shadow overflow-x-auto bg-base-100">
     <table id="table" class="table table-auto w-full">
         <thead>
           <tr>
-            {{-- <th>Id Unit</th> --}}
-            <th>Code Assets</th>
-            <th>Name of Unit</th>
-            <th>Project</th>
-
+            <th>Id Brand</th>
+            <th>Name of Brand Sparepart</th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($units as $u )
+          @foreach ($sparepart_brands as $sb )
           <tr class="hover">
-              {{-- <th class="text-left">{{$u->id}}</th> --}}
-              <th>{{$u->asset_code}}</th>
-              <th>{{$u->name}}</th>
-              <th>{{$u->project->name}}</th>
-
+              <th>{{$sb->id}}</th>
+              <th>{{$sb->name}}</th>
             </tr>
           @endforeach
         </tbody>
@@ -35,7 +29,7 @@
             columnDefs: [{
               orderable: true,
               searchable: true,
-              targets: -2,
+              targets: -1,
             }]
           });
         })

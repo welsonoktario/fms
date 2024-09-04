@@ -29,9 +29,25 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        Project::create([
-            'name' => $request->name,
+        // Project::create([
+        //     'name' => $request->name,
+        //     'timezone' => $request->timezone,
+        // ]);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'timezone' => 'required|in:WIB,WIT,WITA',
         ]);
+        try {
+            // Create a new driver record
+            Project::create([
+                'name' => $validated['name'],
+                'timezone' => $validated['timezone'],
+            ]);
+
+            return redirect()->route('projects.index')->with('success', 'Project created successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('projects.index')->with('error', 'An error occurred: ' . $e->getMessage());
+        }
         return redirect()->route('projects.index');
     }
 

@@ -9,6 +9,7 @@
           <tr>
             <th>Id Projects</th>
             <th>Name of Projects</th>
+            <th>Time Zone</th>
           </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
           <tr class="hover">
               <th class="text-left">{{$p->id}}</th>
               <th>{{$p->name}}</th>
+              <th>{{$p->timezone}}</th>
             </tr>
           @endforeach
         </tbody>

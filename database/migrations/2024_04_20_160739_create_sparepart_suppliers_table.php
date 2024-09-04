@@ -13,9 +13,9 @@ return new class () extends Migration {
         Schema::create('sparepart_suppliers', function (Blueprint $table) {
             $table->foreignId('sparepart_id')
                 ->constrained();
-            $table->foreignId('sparepart_supplier_id')
+            $table->foreignId('supplier_id')
                 ->constrained();
-            $table->int('price');
+            $table->integer('price');
             $table->timestamps();
         });
     }

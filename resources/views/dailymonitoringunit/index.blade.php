@@ -1,27 +1,23 @@
-<x-layouts.app title="Units">
+<x-layouts.app title="Daily">
   <div class="flex justify-between w-full items-center">
-    <h1 class="text text-xl font-semibold">Units</h1>
-    <a href="{{ route('units.create') }}" class="btn btn-sm btn-primary">Add</a>
+    <h1 class="text text-xl font-semibold">Daily Monitoring Unit</h1>
+    <a href="{{ route('dailymonitoringunits.create') }}" class="btn btn-sm btn-primary">Add</a>
   </div>
   <div class="mt-4 rounded-lg p-4 shadow overflow-x-auto bg-base-100">
     <table id="table" class="table table-auto w-full">
         <thead>
           <tr>
-            {{-- <th>Id Unit</th> --}}
-            <th>Code Assets</th>
-            <th>Name of Unit</th>
-            <th>Project</th>
-
+            <th>Id</th>
+            <th>Air Radiator</th>
+            <th>Air Aki</th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($units as $u )
+          @foreach ($dailymonitoringunits as $dmu )
           <tr class="hover">
-              {{-- <th class="text-left">{{$u->id}}</th> --}}
-              <th>{{$u->asset_code}}</th>
-              <th>{{$u->name}}</th>
-              <th>{{$u->project->name}}</th>
-
+              <th class="text-left">{{$p->id}}</th>
+              <th>{{$dmu->radiator_coolant}}</th>
+              <th>{{$dmu->battery_electrolyte}}</th>
             </tr>
           @endforeach
         </tbody>

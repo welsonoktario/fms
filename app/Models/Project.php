@@ -10,4 +10,9 @@ class Project extends Model
     use HasFactory;
     protected $table ='projects';
     protected $guarded = [];
+
+    public function units()
+    {
+        return $this->hasMany(Unit::class);
+    }
 }

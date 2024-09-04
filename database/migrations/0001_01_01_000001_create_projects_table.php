@@ -10,13 +10,11 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sparepart_suppliers', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')
-                ->constrained();
-            $table->string('name');
-            $table->string('address');
-            $table->string('phone');
+            $table->string('name')
+                ->unique();
+            $table->enum('timezone',['WIB','WIT','WITA']);
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('projects');
     }
 };

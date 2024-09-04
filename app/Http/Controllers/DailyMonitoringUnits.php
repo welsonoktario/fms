@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sparepart;
+use App\Models\DailyMonitoringUnit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class SparepartController extends Controller
+class DailyMonitoringUnits extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $spareparts = DB::table('spareparts')->get();
-        $sparepart_categories = DB::table('sparepart_categories')->get();
-        $sparepart_brands = DB::table('sparepart_brands')->get();
-        return view('sparepart.index', compact('spareparts', 'sparepart_categories', 'sparepart_brands'));
+        $dailymonitoringunits = DailyMonitoringUnit::all();
+        return view('dailymonitoringunit.index',compact('dailymonitoringunits'));
     }
 
     /**
@@ -24,9 +21,7 @@ class SparepartController extends Controller
      */
     public function create()
     {
-        $spareparts = DB::table('spareparts')->get();
-        $sparepart_categories = DB::table('sparepart_categories')->get();
-        return view('sparepart.create', compact('spareparts','sparepart_categories'));
+        //
     }
 
     /**
@@ -34,12 +29,7 @@ class SparepartController extends Controller
      */
     public function store(Request $request)
     {
-        $spareparts = Sparepart::create([
-            'name' => $request->name,
-            'sparepart_categorie' => $request->sparepart_categorie,
-            'sparepart_brand' => $request->sparepart_brand,
-        ]);
-        return redirect()->route('spareparts.index', compact('spareparts'));
+        //
     }
 
     /**

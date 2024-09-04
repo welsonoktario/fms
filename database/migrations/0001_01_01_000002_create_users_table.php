@@ -14,10 +14,17 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            // $table->foreignId('project_id')
+            //     ->constrained()
+            //     ->cascadeOnUpdate()
+            //     ->cascadeOnDelete();
+            // $table->foreignId('current_proyek_id')
+            // ->constrained();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role',['admin','user']);
+            $table->enum('status',['ACTIVE','NOT ACTIVE']);
             $table->rememberToken();
             $table->timestamps();
         });
