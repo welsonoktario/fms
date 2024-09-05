@@ -18,7 +18,7 @@
                     placeholder="Input Asset Code of Unit" required="">
             </div>
         </div>
-        <div class="space-y-4">
+        {{-- <div class="space-y-4">
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Name of Units
                     :</label>
@@ -26,7 +26,7 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Input Name of Unit" required="">
             </div>
-        </div>
+        </div> --}}
         <div>
             <label for="project" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Project</label>
             <select id="project" name="project"
@@ -156,7 +156,7 @@
                 <label for="unit_tax_duedate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tax
                     Due Date
                     :</label>
-                <input type="text" name="unit_tax_duedate" id="unit_tax_duedate"
+                <input type="date" name="unit_tax_duedate" id="unit_tax_duedate"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Input Tax Due Date of Unit" required="">
             </div>
@@ -166,7 +166,7 @@
                 <label for="image_unit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Unit
                     Image
                     :</label>
-                <input type="text" name="image_unit" id="image_unit"
+                <input type="file" name="image_unit" id="image_unit"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Input Unit Image of Unit" required="">
             </div>
@@ -200,17 +200,11 @@
             </button>
         </div>
     </form>
-    <x-slot:scripts>
+    {{-- <x-slot:scripts>
         <script>
-            // $(document).ready(function() {
-            //     $('#user').select2({
-            //         placeholder: "Select a user",
-            //         allowClear: true
-            //     });
-            // });
             $(document).ready(function() {
   $('.select2').select2();
 });
         </script>
-    </x-slot:scripts>
+    </x-slot:scripts> --}}
 </x-layouts.app>

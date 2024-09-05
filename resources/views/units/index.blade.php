@@ -11,6 +11,7 @@
             <th>Code Assets</th>
             <th>Name of Unit</th>
             <th>Project</th>
+            <th>Barcode Image</th>
 
           </tr>
         </thead>
@@ -21,6 +22,7 @@
               <th>{{$u->asset_code}}</th>
               <th>{{$u->name}}</th>
               <th>{{$u->project->name}}</th>
+              <th>{{$u->image_barcode}}</th>
 
             </tr>
           @endforeach

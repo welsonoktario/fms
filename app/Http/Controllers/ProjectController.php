@@ -38,7 +38,6 @@ class ProjectController extends Controller
             'timezone' => 'required|in:WIB,WIT,WITA',
         ]);
         try {
-            // Create a new driver record
             Project::create([
                 'name' => $validated['name'],
                 'timezone' => $validated['timezone'],

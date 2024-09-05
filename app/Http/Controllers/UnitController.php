@@ -42,7 +42,7 @@ class UnitController extends Controller
     {
         $validated = $request->validate([
             'asset_code' => 'required|string|max:255|unique:units,asset_code',
-            'name' => 'required|string|max:255',
+            // 'name' => 'required|string|max:255',
             'project_id' => 'required|exists:projects,id',
             'user_id' => 'required|exists:users,id',
             'year' => 'required|string|max:255',
@@ -56,14 +56,15 @@ class UnitController extends Controller
             'tire_size_rear' => 'required|string|max:255',
             'tire_pressure_front' => 'required|string|max:255',
             'tire_pressure_rear' => 'required|string|max:255',
-            'unit_tax' => 'required|date',
-            'image_unit' => 'required|string|max:255',
-            'description' => 'required|longtext',
+            'unit_tax_duedate' => 'required|date',
+            'image_unit' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'description' => 'required|string|max:255',
+            'status' => 'required|in:ACTIVE,NOT ACTIVE',
         ]);
         try{
-            Unit::create([
+           $units =  Unit::create([
                 'asset_code' => $validated['asset_code'],
-                'nik' => $validated['nik'],
+                // 'nik' => $validated['nik'],
                 'project_id' => $validated['project_id'],
                 'user_id' => $validated['user_id'],
                 'year' => $validated['year'],
@@ -77,10 +78,19 @@ class UnitController extends Controller
                 'tire_size_rear' => $validated['tire_size_rear'],
                 'tire_pressure_front' => $validated['tire_pressure_front'],
                 'tire_pressure_rear' => $validated['tire_pressure_rear'],
-                'unit_tax' => $validated['unit_tax'],
+                'unit_tax_duedate' => $validated['unit_tax_duedate'],
                 'image_unit' => $validated['image_unit'],
                 'description' => $validated['description'],
+                'status' => $validated['status'],
             ]);
+            if ($request->hasFile('image_unit')) {
+                $file = $request->file('image_unit');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('public/images.unit', $filename);
+                $validated['image_unit'] = $filename;
+            }
+            $barcodeLink = route('show', $units->asset_code);
+            $units->update(['link_barcode' => $barcodeLink]);
             return redirect()->route('units.index')->with('success', 'Units created successfully.');
         } catch (\Exception $e) {
             return redirect()->route('units.index')->with('error', 'An error occurred: ' . $e->getMessage());
