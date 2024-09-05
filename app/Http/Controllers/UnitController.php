@@ -8,6 +8,7 @@ use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UnitController extends Controller
 {
@@ -86,7 +87,7 @@ class UnitController extends Controller
             if ($request->hasFile('image_unit')) {
                 $file = $request->file('image_unit');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                $file->storeAs('public/images.unit', $filename);
+                $file->storeAs('public/images/units', $filename);
                 $validated['image_unit'] = $filename;
             }
             $barcodeLink = route('show', $units->asset_code);
@@ -129,4 +130,16 @@ class UnitController extends Controller
     {
         //
     }
+    public function generate($asset_code)
+    {
+        $units = Unit::firstWhere('asset_code',$asset_code);
+        if (!$units->image_barcode);
+        {
+            $filename = public_path("img") . "/qr/{$asset_code}.svg";
+            $url = asset('img/qrunits/' . "{$asset_code}.svg");
+            $qrcode = QrCode::size(400)->generate($units->link_barcode, $filename);
+            Driver::where('id',$units->id)->update(['image_barcode'=>$url]);
+        }
+    return back();
+}
 }

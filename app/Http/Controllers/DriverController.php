@@ -108,7 +108,7 @@ class DriverController extends Controller
         if (!$drivers->image_barcode);
         {
             $filename = public_path("img") . "/qr/{$nik}.svg";
-            $url = asset('img/qr/' . "{$nik}.svg");
+            $url = asset('img/qrdrivers/' . "{$nik}.svg");
             $qrcode = QrCode::size(400)->generate($drivers->link_barcode, $filename);
             Driver::where('id',$drivers->id)->update(['image_barcode'=>$url]);
         }
