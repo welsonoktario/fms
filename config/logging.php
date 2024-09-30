@@ -131,6 +131,8 @@ return [
             'driver' => 'single',
             'path' => storage_path('logs/api/api.log'),  // Log file location
             'level' => env('LOG_LEVEL', 'debug'),  // Log only errors and above
+            'days' => env('LOG_DAILY_DAYS', 14),
+            'replace_placeholders' => true,
         ],
     ],
 

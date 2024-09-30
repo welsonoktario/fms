@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class UnitController extends APIController
@@ -10,11 +11,25 @@ class UnitController extends APIController
     {
         try {
             $user = $request->user();
-            $units = $user->units;
+            $unit = $user->unit;
 
             return response()->json([
-                'success' => true,
-                'data' => $units
+                'status' => 'ok',
+                'data' => $unit
+            ]);
+        } catch (\Throwable $exception) {
+            return $this->handleApiException($exception, $request);
+        }
+    }
+
+    public function show(Request $request, int $id)
+    {
+        try {
+            $unit = Unit::find($id);
+
+            return response()->json([
+                'status' => 'ok',
+                'data' => $unit
             ]);
         } catch (\Throwable $exception) {
             return $this->handleApiException($exception, request());

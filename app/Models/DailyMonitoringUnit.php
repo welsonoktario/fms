@@ -8,8 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class DailyMonitoringUnit extends Model
 {
     use HasFactory;
+
     protected $table = 'daily_monitoring_units';
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'conditions' => 'array',
+        ];
+    }
 
+    /**
+     * Scope a query to only include today's daily monitoring units.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeToday($query)
+    {
+        return $query->whereDate('created_at', date('Y-m-d'));
+    }
 }

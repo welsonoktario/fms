@@ -30,7 +30,7 @@ class APIController extends Controller
 
         // Return a standardized JSON error response
         return response()->json([
-            'error' => true,
+            'status' => 'fail',
             'message' => $exception->getMessage(),
             'code' => $statusCode
         ], $statusCode);

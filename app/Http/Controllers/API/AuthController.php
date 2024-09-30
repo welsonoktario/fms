@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\Auth\APILoginRequest;
+use App\Http\Requests\API\Auth\APILoginRequest;
 use Illuminate\Http\Request;
 
 class AuthController extends APIController
@@ -13,7 +13,7 @@ class AuthController extends APIController
             $user = $request->authenticate();
 
             return response()->json([
-                'success' => true,
+                'status' => 'ok',
                 'data' => $user
             ]);
         } catch (\Throwable $exception) {
@@ -29,7 +29,7 @@ class AuthController extends APIController
             $user->tokens()->delete();
 
             return response()->json([
-                'success' => true
+                'status' => 'ok',
             ]);
         } catch (\Throwable $exception) {
             return $this->handleApiException($exception, request());
@@ -39,10 +39,10 @@ class AuthController extends APIController
     public function profile(Request $request)
     {
         try {
-            $user = $request->user();
+            $user = $request->user('sanctum');
 
             return response()->json([
-                'success' => true,
+                'status' => 'ok',
                 'data' => $user
             ]);
         } catch (\Throwable $exception) {
