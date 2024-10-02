@@ -24,6 +24,11 @@ class DailyMonitoringUnit extends Model
         ];
     }
 
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class);
+    }
+
     /**
      * Scope a query to only include today's daily monitoring units.
      *

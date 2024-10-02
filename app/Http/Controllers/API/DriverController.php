@@ -14,14 +14,15 @@ class DriverController extends APIController
         try {
             $drivers = Driver::query()
                 ->when($request->query->get('q'), function ($query) use ($q) {
-                    return $query->where('nik', 'LIKE', "%$q%");
+                    return $query->where('nik', 'LIKE', "%$q%")
+                        ->orWhere('name', 'LIKE', "%$q%");
                 })
                 ->orderBy('name', 'ASC')
                 ->get()
                 ->map(function ($driver) {
                     return [
                         'id' => $driver->id,
-                        'title' => "$driver->nik - $driver->name"
+                        'title' => "$driver->name - $driver->nik"
                     ];
                 });
 

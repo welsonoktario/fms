@@ -5,6 +5,7 @@ namespace App\Http\Requests\API\Auth;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -55,9 +56,16 @@ class APILoginRequest extends FormRequest
         // Create and return Sanctum token
         /** @var \App\Models\User $user **/
         $user = Auth::user();
+        $unit = $user->unit;
+
+        Log::debug(json_encode([
+            'user' => $user->only(['id', 'email', 'name', 'role', 'status']),
+            'unit' => $unit,
+        ]));
 
         return [
             'user' => $user->only(['id', 'email', 'name', 'role', 'status']),
+            'unit' => $unit,
             'token' => $user->createToken('auth_token')->plainTextToken
         ];
     }
