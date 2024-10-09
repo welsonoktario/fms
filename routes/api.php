@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('daily-monitoring-units')->group(function () {
         Route::get('/', [DailyMonitoringController::class, 'index']);
         Route::post('/', [DailyMonitoringController::class, 'store']);
+        Route::get('today', [DailyMonitoringController::class, 'today']);
         Route::get('{dailyMonitoringUnit}', [DailyMonitoringController::class, 'show']);
     });
 

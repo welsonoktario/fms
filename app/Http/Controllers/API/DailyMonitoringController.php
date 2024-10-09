@@ -53,6 +53,7 @@ class DailyMonitoringController extends APIController
         try {
             /** @var \App\Models\User $user **/
             $user = $request->user();
+            $dailyMonitoringUnit->load(['unit', 'user', 'driver']);
 
             if ($dailyMonitoringUnit->user_id != $user->id) {
                 throw new UnauthorizedException('Unathorized', 403);
@@ -88,6 +89,30 @@ class DailyMonitoringController extends APIController
             return Response::json([
                 'status' => 'ok',
                 'data' => $report
+            ]);
+        } catch (\Throwable $exception) {
+            return $this->handleApiException($exception, $request);
+        }
+    }
+
+    public function today(Request $request)
+    {
+        try {
+            /** @var \App\Models\User $user **/
+            $user = $request->user();
+
+            // Eager load the unit data
+            $unit = $user->unit;
+
+            $dailyMonitoringUnits = $unit->dailyMonitoringUnits()
+                ->with('driver')
+                ->whereDate('created_at', today('Asia/Jakarta'))
+                ->orderBy('created_at', 'DESC')
+                ->get();
+
+            return Response::json([
+                'status' => 'ok',
+                'data' => $dailyMonitoringUnits
             ]);
         } catch (\Throwable $exception) {
             return $this->handleApiException($exception, $request);

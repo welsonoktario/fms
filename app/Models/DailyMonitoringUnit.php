@@ -24,19 +24,18 @@ class DailyMonitoringUnit extends Model
         ];
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function driver()
     {
         return $this->belongsTo(Driver::class);
     }
 
-    /**
-     * Scope a query to only include today's daily monitoring units.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeToday($query)
+    public function unit()
     {
-        return $query->whereDate('created_at', date('Y-m-d'));
+        return $this->belongsTo(Unit::class);
     }
 }
