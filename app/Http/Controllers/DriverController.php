@@ -13,7 +13,7 @@ class DriverController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::all();
+        $drivers = Driver::where('status','ACTIVE')->get();
         return view('driver.index',compact('drivers'));
     }
 
@@ -63,7 +63,7 @@ class DriverController extends Controller
             'status' => $validated['status'],
         ]);
         // dd($drivers);
-        $barcodeLink = route('show', $drivers->nik);
+        $barcodeLink = route('showqr', $drivers->nik);
         $drivers->update(['link_barcode' => $barcodeLink]);
         return redirect()->route('drivers.index')->with('success', 'Driver created successfully.');
     } catch (\Exception $e) {
@@ -107,7 +107,7 @@ class DriverController extends Controller
         $drivers = Driver::firstWhere('nik',$nik);
         if (!$drivers->image_barcode);
         {
-            $filename = public_path("img") . "/qr/{$nik}.svg";
+            $filename = public_path("img") . "/qrdrivers/{$nik}.svg";
             $url = asset('img/qrdrivers/' . "{$nik}.svg");
             $qrcode = QrCode::size(400)->generate($drivers->link_barcode, $filename);
             Driver::where('id',$drivers->id)->update(['image_barcode'=>$url]);

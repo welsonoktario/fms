@@ -18,6 +18,9 @@ return new class extends Migration
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained();
+                $table->foreignId('driver_id')
+                ->nullable()
+                ->constrained();
                 $table->enum('radiator_coolant',['C','K']);
                 $table->enum('battery_electrolyte',['C','K']);
                 $table->enum('engine_oil',['C','K']);

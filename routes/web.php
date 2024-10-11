@@ -35,9 +35,9 @@ Route::resource('sparepart_categories', SparepartCategorieController::class);
 Route::resource('sparepart_brands', SparepartBrandController::class);
 Route::resource('dailymonitoringunits',DailyMonitoringUnits::class);
 Route::get('qrcode/{nik}', [DriverController::class, 'generate'])->name('generate');
-Route::get('/detail/{nik}', [DriverController::class, 'show'])->name('show');
+Route::get('/detail/{nik}', [DriverController::class, 'show'])->name('showqr');
 Route::get('qrcode/{asset_code}', [UnitController::class, 'generate'])->name('generate');
-Route::get('/detail/{asset_code}', [UnitController::class, 'show'])->name('show');
+Route::get('/detail/{asset_code}', [UnitController::class, 'show'])->name('showunit');
 
 
 require __DIR__.'/auth.php';

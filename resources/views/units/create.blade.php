@@ -6,7 +6,17 @@
         </a>
         <h1 class="text text-xl font-semibold">Units - Create</h1>
     </div>
-    <form action="{{ route('units.store') }}" method="POST">
+     <!-- Display error messages if any -->
+     @if ($errors->any())
+     <div class="bg-red-500 text-white p-4 mb-4 rounded">
+         <ul>
+             @foreach ($errors->all() as $error)
+                 <li>{{ $error }}</li>
+             @endforeach
+         </ul>
+     </div>
+ @endif
+    <form action="{{ route('units.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="space-y-4">
             <div>
@@ -28,8 +38,8 @@
             </div>
         </div> --}}
         <div>
-            <label for="project" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Project</label>
-            <select id="project" name="project"
+            <label for="project_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Project</label>
+            <select id="project_id" name="project_id"
                 class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                 <option value="" selected disabled>Choose Project: </option>
                 @foreach ($projects as $p)
@@ -38,9 +48,9 @@
             </select>
         </div>
         <div>
-            <label for="user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Email
+            <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Email
                 Unit</label>
-            <select id="user" name="user"
+            <select id="user_id" name="user_id"
                 class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                 <option value="" selected disabled>Choose user: </option>
                 @foreach ($users as $u)
@@ -161,7 +171,7 @@
                     placeholder="Input Tax Due Date of Unit" required="">
             </div>
         </div>
-        <div class="space-y-4">
+        {{-- <div class="space-y-4">
             <div>
                 <label for="image_unit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Unit
                     Image
@@ -170,7 +180,14 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Input Unit Image of Unit" required="">
             </div>
-        </div>
+        </div> --}}
+        <div class="space-y-4">
+          <label for="image_unit">Upload Image Unit</label>
+          <input type="file" name="image_unit" id="image_unit" class="form-control" accept="image/*" required>
+          @error('image_unit')
+              <span class="text-danger">{{ $message }}</span>
+          @enderror
+      </div>
         <div class="space-y-4">
             <div>
                 <label for="description"
@@ -186,8 +203,8 @@
             <select id="status" name="status" required
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                 <option value="" disabled selected>Choose Status</option>
-                <option value="ACTIVE" {{ old('status') == 'ACTIVE' ? 'selected' : '' }}>ACTIVE</option>
-                <option value="NOT ACTIVE" {{ old('status') == 'NOT ACTIVE' ? 'selected' : '' }}>NOT ACTIVE</option>
+                <option value="READY" {{ old('status') == 'READY' ? 'selected' : '' }}>READY</option>
+                <option value="NOT READY" {{ old('status') == 'NOT READY' ? 'selected' : '' }}>NOT READY</option>
             </select>
             @error('status')
                 <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
@@ -201,10 +218,10 @@
         </div>
     </form>
     {{-- <x-slot:scripts>
-        <script>
-            $(document).ready(function() {
-  $('.select2').select2();
-});
-        </script>
+      <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+      </script>
     </x-slot:scripts> --}}
 </x-layouts.app>

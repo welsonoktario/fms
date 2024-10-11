@@ -6,9 +6,11 @@ use App\Models\Driver;
 use App\Models\Project;
 use App\Models\Unit;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
 
 class UnitController extends Controller
 {
@@ -17,12 +19,12 @@ class UnitController extends Controller
      */
     public function index()
     {
-    //     $searchTerm = $request->input('searchTerm', '');
-    // $projects = Project::where('name', 'like', "%$searchTerm%")->get();
+        //     $searchTerm = $request->input('searchTerm', '');
+        // $projects = Project::where('name', 'like', "%$searchTerm%")->get();
         $units = Unit::all();
         $projects = Project::all();
         $users = User::all();
-        return view('units.index',compact('units','projects','users'));
+        return view('units.index', compact('units', 'projects', 'users'));
     }
 
     /**
@@ -33,7 +35,7 @@ class UnitController extends Controller
         $units = Unit::all();
         $projects = Project::all();
         $users = User::all();
-        return view('units.create',compact('units','projects','users'));
+        return view('units.create', compact('units', 'projects', 'users'));
     }
 
     /**
@@ -41,9 +43,9 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input
         $validated = $request->validate([
             'asset_code' => 'required|string|max:255|unique:units,asset_code',
-            // 'name' => 'required|string|max:255',
             'project_id' => 'required|exists:projects,id',
             'user_id' => 'required|exists:users,id',
             'year' => 'required|string|max:255',
@@ -58,53 +60,74 @@ class UnitController extends Controller
             'tire_pressure_front' => 'required|string|max:255',
             'tire_pressure_rear' => 'required|string|max:255',
             'unit_tax_duedate' => 'required|date',
-            'image_unit' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'description' => 'required|string|max:255',
-            'status' => 'required|in:ACTIVE,NOT ACTIVE',
+            'image_unit' => 'required|image|max:2048',
+            'description' => 'required|string|max:10000',
+            'status' => 'required|string|in:READY,NOT READY',
         ]);
-        try{
-           $units =  Unit::create([
-                'asset_code' => $validated['asset_code'],
-                // 'nik' => $validated['nik'],
-                'project_id' => $validated['project_id'],
-                'user_id' => $validated['user_id'],
-                'year' => $validated['year'],
-                'plate' => $validated['plate'],
-                'model' => $validated['model'],
-                'meter' => $validated['meter'],
-                'colour' => $validated['colour'],
-                'type' => $validated['type'],
-                'serial' => $validated['serial'],
-                'tire_size_front' => $validated['tire_size_front'],
-                'tire_size_rear' => $validated['tire_size_rear'],
-                'tire_pressure_front' => $validated['tire_pressure_front'],
-                'tire_pressure_rear' => $validated['tire_pressure_rear'],
-                'unit_tax_duedate' => $validated['unit_tax_duedate'],
-                'image_unit' => $validated['image_unit'],
-                'description' => $validated['description'],
-                'status' => $validated['status'],
-            ]);
-            if ($request->hasFile('image_unit')) {
-                $file = $request->file('image_unit');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $file->storeAs('public/images/units', $filename);
-                $validated['image_unit'] = $filename;
-            }
-            $barcodeLink = route('show', $units->asset_code);
+        if ($request->hasFile('image_unit')) {
+            // Retrieve the file from the request
+            $file = $request->file('image_unit');
+
+            // Get the MIME type of the file
+            $mimeType = $file->getMimeType();
+
+            // Map MIME types to extensions
+            $mimeMap = [
+                'image/jpeg' => 'jpg',
+                'image/png'  => 'png',
+                'image/gif'  => 'gif',
+            ];
+            $extension = $mimeMap[$mimeType] ?? 'jpg';
+            $asset_code = $request->input('asset_code');
+            $filename = $asset_code . '.' . $extension;
+            $file->move(public_path('img/units'), $filename);
+            $validated['image_unit'] = 'img/units/' . $filename;
+        }
+
+
+        $units = Unit::create([
+            'asset_code' => $validated['asset_code'],
+            'project_id' => $validated['project_id'],
+            'user_id' => $validated['user_id'],
+            'year' => $validated['year'],
+            'plate' => $validated['plate'],
+            'model' => $validated['model'],
+            'meter' => $validated['meter'],
+            'colour' => $validated['colour'],
+            'type' => $validated['type'],
+            'serial' => $validated['serial'],
+            'tire_size_front' => $validated['tire_size_front'],
+            'tire_size_rear' => $validated['tire_size_rear'],
+            'tire_pressure_front' => $validated['tire_pressure_front'],
+            'tire_pressure_rear' => $validated['tire_pressure_rear'],
+            'unit_tax_duedate' => $validated['unit_tax_duedate'],
+            'image_unit' => $validated['image_unit'],
+            'description' => $validated['description'],
+            'status' => $validated['status'],
+        ]);
+        // $units->update(['image_units' => "{$units->asset_code}.jpg"]);
+
+        // Storage::putFileAs('public/img/units', $request->file, "{$units->asset_code}.jpg");
+        // try {
+        try {
+
+            $barcodeLink = route('showunit', $units->asset_code);
             $units->update(['link_barcode' => $barcodeLink]);
-            return redirect()->route('units.index')->with('success', 'Units created successfully.');
+
+            return redirect()->route('units.index')->with('success', 'Unit berhasil dibuat.');
         } catch (\Exception $e) {
-            return redirect()->route('units.index')->with('error', 'An error occurred: ' . $e->getMessage());
-        // return redirect()->route('units.index',compact('units'));
+            return redirect()->route('units.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
-}
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $units = Unit::find($id);
+        return view('units.show', compact('units'));
     }
 
     /**
@@ -132,14 +155,13 @@ class UnitController extends Controller
     }
     public function generate($asset_code)
     {
-        $units = Unit::firstWhere('asset_code',$asset_code);
-        if (!$units->image_barcode);
-        {
+        $units = Unit::firstWhere('asset_code', $asset_code);
+        if (!$units->image_barcode); {
             $filename = public_path("img") . "/qr/{$asset_code}.svg";
             $url = asset('img/qrunits/' . "{$asset_code}.svg");
             $qrcode = QrCode::size(400)->generate($units->link_barcode, $filename);
-            Driver::where('id',$units->id)->update(['image_barcode'=>$url]);
+            Driver::where('id', $units->id)->update(['image_barcode' => $url]);
         }
-    return back();
-}
+        return back();
+    }
 }

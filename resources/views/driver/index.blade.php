@@ -14,17 +14,18 @@
             <th>Status</th>
             <th>Barcode Image</th>
             <th>Generate Barcode (1st Time)</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($drivers as $d )
           <tr class="hover">
-              <th>{{$d->nik}}</th>
-              <th>{{$d->name}}</th>
-              <th>{{$d->phone_number}}</th>
-              <th>{{$d->provider}}</th>
-              <th>{{$d->status}}</th>
-              <td><img height="100" src="{{ asset('img/qr/' . $d->nik . '.svg') }}"></td>
+              <td>{{$d->nik}}</td>
+              <td>{{$d->name}}</td>
+              <td>{{$d->phone_number}}</td>
+              <td>{{$d->provider}}</td>
+              <td>{{$d->status}}</td>
+              <td><img height="100" src="{{ asset('img/qrdrivers/' . $d->nik . '.svg') }}"style="width: auto; height: 100px;"></td>
               <td>
                 <a href="{{ route('generate',$d->nik) }}" class="btn btn-sm btn-primary">Generate Barcode</a>
               </td>
