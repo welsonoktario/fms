@@ -34,9 +34,9 @@ Route::resource('submissions', SubmissionController::class);
 Route::resource('sparepart_categories', SparepartCategorieController::class);
 Route::resource('sparepart_brands', SparepartBrandController::class);
 Route::resource('dailymonitoringunits',DailyMonitoringUnits::class);
+Route::get('qrcode/{asset_code}', [UnitController::class, 'generate2'])->name('generate2');
 Route::get('qrcode/{nik}', [DriverController::class, 'generate'])->name('generate');
 Route::get('/detail/{nik}', [DriverController::class, 'show'])->name('showqr');
-Route::get('qrcode/{asset_code}', [UnitController::class, 'generate'])->name('generate2');
 Route::get('/detail/{asset_code}', [UnitController::class, 'show'])->name('showunit');
 
 

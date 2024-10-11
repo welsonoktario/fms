@@ -11,7 +11,9 @@
             <th>Code Assets</th>
             <th>Name of Unit</th>
             <th>Project</th>
+            <th>Unit Image</th>
             <th>Barcode Image</th>
+            <th>Generate Barcode (1st Time)</th>
 
           </tr>
         </thead>
@@ -23,6 +25,10 @@
               <td>{{$u->name}}</td>
               <td>{{$u->project->name}}</td>
               <td><img height="10" width="100" src="{{ asset($u->image_unit) }}"></td>
+              <td><img height="100" src="{{ asset('img/qrunits/' . $u->asset_code . '.svg') }}"style="width: auto; height: 100px;"></td>
+              <td>
+                <a href="{{ route('generate2',$u->asset_code) }}" class="btn btn-sm btn-primary">Generate Barcode</a>
+              </td>
               <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-black">
                 <a href="{{ route('units.show', $u->id) }}"
                     data-drawer-show="drawer-update-product-default"
@@ -51,9 +57,7 @@
                     Delete item
                 </button>
             </td>
-            <td>
-                <a href="{{ route('generate2',$u->asset_code) }}" class="btn btn-sm btn-primary">Generate Barcode</a>
-              </td>
+
             </tr>
           @endforeach
         </tbody>
