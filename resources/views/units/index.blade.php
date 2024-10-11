@@ -51,6 +51,9 @@
                     Delete item
                 </button>
             </td>
+            <td>
+                <a href="{{ route('generate2',$u->asset_code) }}" class="btn btn-sm btn-primary">Generate Barcode</a>
+              </td>
             </tr>
           @endforeach
         </tbody>
