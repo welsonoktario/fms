@@ -80,8 +80,8 @@ class UnitController extends Controller
             $extension = $mimeMap[$mimeType] ?? 'jpg';
             $asset_code = $request->input('asset_code');
             $filename = $asset_code . '.' . $extension;
-            $file->move(public_path('img/units'), $filename);
-            $validated['image_unit'] = 'img/units/' . $filename;
+            $filePath = $file->storeAs('img/units', $filename, 'public');
+            $validated['image_unit'] = "/storage/$filePath";
         }
         $units = Unit::create([
             'asset_code' => $validated['asset_code'],
@@ -103,11 +103,11 @@ class UnitController extends Controller
             'description' => $validated['description'],
             'status' => $validated['status'],
         ]);
-        try{
-        // $units->update(['image_units' => "{$units->asset_code}.jpg"]);
+        try {
+            // $units->update(['image_units' => "{$units->asset_code}.jpg"]);
 
-        // Storage::putFileAs('public/img/units', $request->file, "{$units->asset_code}.jpg");
-        // try {
+            // Storage::putFileAs('public/img/units', $request->file, "{$units->asset_code}.jpg");
+            // try {
             $barcodeLink = route('showunit', $units->asset_code);
             $units->update(['link_barcode' => $barcodeLink]);
 
@@ -154,11 +154,15 @@ class UnitController extends Controller
     {
         $units = Unit::firstWhere('asset_code', $asset_code);
         if (!$units->image_barcode); {
-            $filename = public_path("img") . "/qrunits/{$asset_code}.svg";
-            $url = asset('img/qrunits/' . "{$asset_code}.svg");
-            $qrcode = QrCode::size(400)->generate($units->link_barcode, $filename);
+            $filePath = Storage::disk('public')->path("img/qrunits");
+            $fileName = "{$asset_code}.svg";
+            QrCode::size(400)->generate($units->link_barcode, "$filePath/$fileName");
+            $url = "/storage/img/qrunits/$fileName";
+            dump($url);
+
             Unit::where('id', $units->id)->update(['image_barcode' => $url]);
         }
+
         return back();
     }
 }
