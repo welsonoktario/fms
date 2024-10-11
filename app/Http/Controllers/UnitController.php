@@ -83,8 +83,6 @@ class UnitController extends Controller
             $file->move(public_path('img/units'), $filename);
             $validated['image_unit'] = 'img/units/' . $filename;
         }
-
-
         $units = Unit::create([
             'asset_code' => $validated['asset_code'],
             'project_id' => $validated['project_id'],
@@ -105,12 +103,11 @@ class UnitController extends Controller
             'description' => $validated['description'],
             'status' => $validated['status'],
         ]);
+        try{
         // $units->update(['image_units' => "{$units->asset_code}.jpg"]);
 
         // Storage::putFileAs('public/img/units', $request->file, "{$units->asset_code}.jpg");
         // try {
-        try {
-
             $barcodeLink = route('showunit', $units->asset_code);
             $units->update(['link_barcode' => $barcodeLink]);
 
@@ -153,14 +150,14 @@ class UnitController extends Controller
     {
         //
     }
-    public function generate($asset_code)
+    public function generate2($asset_code)
     {
         $units = Unit::firstWhere('asset_code', $asset_code);
         if (!$units->image_barcode); {
-            $filename = public_path("img") . "/qr/{$asset_code}.svg";
+            $filename = public_path("img") . "/qrunits/{$asset_code}.svg";
             $url = asset('img/qrunits/' . "{$asset_code}.svg");
             $qrcode = QrCode::size(400)->generate($units->link_barcode, $filename);
-            Driver::where('id', $units->id)->update(['image_barcode' => $url]);
+            Unit::where('id', $units->id)->update(['image_barcode' => $url]);
         }
         return back();
     }
