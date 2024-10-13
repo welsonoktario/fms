@@ -12,6 +12,7 @@ class UnitController extends APIController
         try {
             $user = $request->user();
             $unit = $user->unit;
+            $unit->load('project');
 
             return response()->json([
                 'status' => 'ok',

@@ -57,11 +57,7 @@ class APILoginRequest extends FormRequest
         /** @var \App\Models\User $user **/
         $user = Auth::user();
         $unit = $user->unit;
-
-        Log::debug(json_encode([
-            'user' => $user->only(['id', 'email', 'name', 'role', 'status']),
-            'unit' => $unit,
-        ]));
+        $unit->load('project');
 
         return [
             'user' => $user->only(['id', 'email', 'name', 'role', 'status']),
