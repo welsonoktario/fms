@@ -14,6 +14,7 @@
           <th>Unit Image</th>
           <th>Barcode Image</th>
           <th>Generate Barcode (1st Time)</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -63,11 +64,10 @@
     <script type="module">
       $(function() {
         $('#table').DataTable({
-          // lengthMenu: [1, 10, 25, 50, 100],
           columnDefs: [{
-            orderable: true,
-            searchable: true,
-            targets: -2,
+            orderable: false,
+            searchable: false,
+            targets: -1,
           }]
         });
       })
