@@ -11,11 +11,12 @@
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.bunny.net">
-  <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" />
 
   <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
   @vite('resources/css/app.css')
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
 
   @if (isset($styles))
     {{ $styles }}
@@ -40,11 +41,9 @@
     </div>
   </main>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  <script src="https://cdn.datatables.net/2.0.4/js/dataTables.js" type="module"></script>
-
-  @vite('resources/js/app.js')
+  <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/select2@4.0.13/dist/js/select2.min.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" type="module"></script>=
 
   @if (isset($scripts))
     {{ $scripts }}

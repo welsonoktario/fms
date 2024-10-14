@@ -68,17 +68,25 @@ class UnitController extends Controller
             'status' => 'required|string|in:READY,NOT READY',
         ]);
         if ($request->hasFile('image_unit')) {
+            // Retrieve the file from the request
             $file = $request->file('image_unit');
-            $extension = $file->getClientOriginalExtension(); // Ambil ekstensi asli file
+
+            // Get the MIME type of the file
+            $mimeType = $file->getMimeType();
+
+            // Map MIME types to extensions
+            $mimeMap = [
+                'image/jpeg' => 'jpg',
+                'image/png'  => 'png',
+                'image/gif'  => 'gif',
+            ];
+            $extension = $mimeMap[$mimeType] ?? 'jpg';
             $asset_code = $request->input('asset_code');
             $filename = $asset_code . '.' . $extension;
-
-            // Simpan file di folder public/img/units
-            $filePath = $file->storeAs('img/units', $filename, 'public');
-
-            // Simpan path file dalam validasi
-            $validated['image_unit'] = $filePath;
+            $file->move(public_path('img/units'), $filename);
+            $validated['image_unit'] = 'img/units/' . $filename;
         }
+
 
         $units = Unit::create([
             'asset_code' => $validated['asset_code'],

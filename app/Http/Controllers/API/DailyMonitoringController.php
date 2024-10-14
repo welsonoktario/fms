@@ -74,15 +74,16 @@ class DailyMonitoringController extends APIController
             $user = $request->user();
             $data = $request->validated();
 
-            $isReady = !$data['issues'] && collect($data['conditions'])->every(function ($condition) {
+            $isReady = !$data['issue'] && collect($data['conditions'])->every(function ($condition) {
                 return !$condition['issue'];
             });
             $report = $user->unit
                 ->dailyMonitoringUnits()
                 ->create([
                     'user_id' => $user->id,
+                    'driver_id' => $data['driver'],
                     'conditions' => $data['conditions'],
-                    'issue' => $data['issues'],
+                    'issue' => $data['issue'],
                     'status_unit' => $isReady ? 'READY' : 'NOT READY',
                 ]);
 

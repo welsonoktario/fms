@@ -28,7 +28,7 @@ class CreateReportRequest extends FormRequest
             'conditions.*.name' => 'required|string', // Name must be a string
             'conditions.*.value' => 'required|string', // Value must be a string
             'driver' => 'required|integer', // Driver must be an integer
-            'issues' => 'nullable|string', // Issues must be a string
+            'issue' => 'nullable|string', // Issues must be a string
         ];
     }
 
