@@ -27,7 +27,7 @@
               <td>{{$d->status}}</td>
               <td><img height="100" src="{{ asset('img/qrdrivers/' . $d->nik . '.svg') }}"style="width: auto; height: 100px;"></td>
               <td>
-                <a href="{{ route('generate',$d->nik) }}" class="btn btn-sm btn-primary">Generate Barcode</a>
+                <a href="{{ route('gendriver',$d->nik) }}" class="btn btn-sm btn-primary">Generate Barcode</a>
               </td>
             </tr>
           @endforeach

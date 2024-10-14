@@ -33,6 +33,9 @@ class UnitController extends Controller
     public function create()
     {
         $units = Unit::all();
+        foreach($units as $item) {
+            $item->file_baru = Storage::disk('public/img/units')->files('uploads');
+            }
         $projects = Project::all();
         $users = User::all();
         return view('units.create', compact('units', 'projects', 'users'));
@@ -65,25 +68,17 @@ class UnitController extends Controller
             'status' => 'required|string|in:READY,NOT READY',
         ]);
         if ($request->hasFile('image_unit')) {
-            // Retrieve the file from the request
             $file = $request->file('image_unit');
-
-            // Get the MIME type of the file
-            $mimeType = $file->getMimeType();
-
-            // Map MIME types to extensions
-            $mimeMap = [
-                'image/jpeg' => 'jpg',
-                'image/png'  => 'png',
-                'image/gif'  => 'gif',
-            ];
-            $extension = $mimeMap[$mimeType] ?? 'jpg';
+            $extension = $file->getClientOriginalExtension(); // Ambil ekstensi asli file
             $asset_code = $request->input('asset_code');
             $filename = $asset_code . '.' . $extension;
-            $file->move(public_path('img/units'), $filename);
-            $validated['image_unit'] = 'img/units/' . $filename;
-        }
 
+            // Simpan file di folder public/img/units
+            $filePath = $file->storeAs('img/units', $filename, 'public');
+
+            // Simpan path file dalam validasi
+            $validated['image_unit'] = $filePath;
+        }
 
         $units = Unit::create([
             'asset_code' => $validated['asset_code'],
@@ -105,10 +100,6 @@ class UnitController extends Controller
             'description' => $validated['description'],
             'status' => $validated['status'],
         ]);
-        // $units->update(['image_units' => "{$units->asset_code}.jpg"]);
-
-        // Storage::putFileAs('public/img/units', $request->file, "{$units->asset_code}.jpg");
-        // try {
         try {
 
             $barcodeLink = route('showunit', $units->asset_code);
@@ -127,7 +118,7 @@ class UnitController extends Controller
     public function show(string $id)
     {
         $units = Unit::find($id);
-        return view('units.show', compact('absensis'));
+        return view('units.show', compact('units'));
     }
 
     /**
@@ -160,7 +151,7 @@ class UnitController extends Controller
             $filename = public_path("img") . "/qrunits/{$asset_code}.svg";
             $url = asset('img/qrunits/' . "{$asset_code}.svg");
             $qrcode = QrCode::size(400)->generate($units->link_barcode, $filename);
-            Driver::where('id', $units->id)->update(['image_barcode' => $url]);
+            Unit::where('id', $units->id)->update(['image_barcode' => $url]);
         }
         return back();
     }

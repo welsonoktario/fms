@@ -102,7 +102,7 @@ class DriverController extends Controller
     {
         //
     }
-    public function generate($nik)
+    public function gendriver($nik)
     {
         $drivers = Driver::firstWhere('nik',$nik);
         if (!$drivers->image_barcode);
