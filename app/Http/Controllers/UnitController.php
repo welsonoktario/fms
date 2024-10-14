@@ -68,23 +68,12 @@ class UnitController extends Controller
             'status' => 'required|string|in:READY,NOT READY',
         ]);
         if ($request->hasFile('image_unit')) {
-            // Retrieve the file from the request
             $file = $request->file('image_unit');
-
-            // Get the MIME type of the file
-            $mimeType = $file->getMimeType();
-
-            // Map MIME types to extensions
-            $mimeMap = [
-                'image/jpeg' => 'jpg',
-                'image/png'  => 'png',
-                'image/gif'  => 'gif',
-            ];
-            $extension = $mimeMap[$mimeType] ?? 'jpg';
+            $extension = $file->getClientOriginalExtension();
             $asset_code = $request->input('asset_code');
             $filename = $asset_code . '.' . $extension;
-            $file->move(public_path('img/units'), $filename);
-            $validated['image_unit'] = 'img/units/' . $filename;
+            $filePath = $file->storeAs('img/units', $filename, 'public');
+            $validated['image_unit'] = $filePath;
         }
 
 
