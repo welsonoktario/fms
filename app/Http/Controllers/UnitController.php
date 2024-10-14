@@ -33,9 +33,6 @@ class UnitController extends Controller
     public function create()
     {
         $units = Unit::all();
-        foreach($units as $item) {
-            $item->file_baru = Storage::disk('public/img/units')->files('uploads');
-            }
         $projects = Project::all();
         $users = User::all();
         return view('units.create', compact('units', 'projects', 'users'));
