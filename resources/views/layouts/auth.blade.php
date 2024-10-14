@@ -23,7 +23,7 @@
     {{ $slot }}
   </main>
 
-  @vite('resources/js/app.js')
+  <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
   @if (isset($scripts))
     {{ $scripts }}
   @endif
