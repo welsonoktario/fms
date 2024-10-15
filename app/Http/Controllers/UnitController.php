@@ -141,10 +141,11 @@ class UnitController extends Controller
     public function generate2($asset_code)
     {
         $units = Unit::firstWhere('asset_code', $asset_code);
-        if (!$units->image_barcode); {
-            $filename = public_path("img") . "/qrunits/{$asset_code}.svg";
-            $url = asset('img/qrunits/' . "{$asset_code}.svg");
-            $qrcode = QrCode::size(400)->generate($units->link_barcode, $filename);
+        if (!$units->image_barcode) {
+            $filename = "{$asset_code}.svg"; // Only the filename without the path
+            $url = asset('img/qrunits/' . $filename);
+            $qrcode = QrCode::size(400)->generate($units->link_barcode);
+            Storage::disk('public')->put("img/units/{$filename}", $qrcode);
             Unit::where('id', $units->id)->update(['image_barcode' => $url]);
         }
         return back();
