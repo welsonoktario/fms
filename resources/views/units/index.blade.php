@@ -8,7 +8,7 @@
       <thead>
         <tr>
           {{-- <th>Id Unit</th> --}}
-          <th>Code Assets</th>
+          <th>Asset Code</th>
           <th>Name of Unit</th>
           <th>Project</th>
           <th>Unit Image</th>
@@ -65,8 +65,8 @@
       $(function() {
         $('#table').DataTable({
           columnDefs: [{
-            orderable: false,
-            searchable: false,
+            orderable: true,
+            searchable: true,
             targets: -1,
           }]
         });
