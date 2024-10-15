@@ -145,7 +145,7 @@ class UnitController extends Controller
             $filename = "{$asset_code}.svg"; // Only the filename without the path
             $url = asset('img/qrunits/' . $filename);
             $qrcode = QrCode::size(400)->generate($units->link_barcode);
-            Storage::disk('public')->put("img/units/{$filename}", $qrcode);
+            Storage::disk('public')->put("img/qrunits/{$filename}", $qrcode);
             Unit::where('id', $units->id)->update(['image_barcode' => $url]);
         }
         return back();
