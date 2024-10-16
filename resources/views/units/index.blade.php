@@ -9,12 +9,12 @@
                 <tr>
                     {{-- <th>Id Unit</th> --}}
                     <th>Asset Code</th>
-                    <th>Name of Unit</th>
+                    <th>Name / Model Units</th>
                     <th>Project</th>
                     <th>Unit Image</th>
                     <th>Barcode Image</th>
                     <th>Generate Barcode (1st Time)</th>
-                    <th></th>
+                    <th>Action Button</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +22,7 @@
                     <tr class="hover">
                         {{-- <th class="text-left">{{$u->id}}</th> --}}
                         <td>{{ $u->asset_code }}</td>
-                        <td>{{ $u->name }}</td>
+                        <td>{{ $u->model }}</td>
                         <td>{{ $u->project->name }}</td>
                         <td><img height="10" width="100" src="{{ Storage::url($u->image_unit) }}"></td>
                         <td>

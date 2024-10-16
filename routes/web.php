@@ -15,12 +15,9 @@ use App\Http\Controllers\DailyMonitoringUnits;
 
 
 Route::middleware('auth')->group(
-    // use App\Models\SparepartBrand;
-    // use App\Models\SparepartCategory;
-
     function () {
         Route::get('/', function () {
-            return view('auth.login');
+            return view('welcome');
         })->name('dashboard');
         Route::resource('projects', ProjectController::class);
         Route::resource('maintenance-types', MaintenanceTypeController::class);
