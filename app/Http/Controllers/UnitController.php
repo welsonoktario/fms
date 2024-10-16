@@ -142,18 +142,16 @@ class UnitController extends Controller
 {
     $units = Unit::firstWhere('asset_code', $asset_code);
 
-    // Check if unit exists and if link_barcode is not null
     if ($units && !empty($units->link_barcode)) {
         if (!$units->image_barcode) {
-            $filename = "{$asset_code}.svg";
-            $path = "img/qrunits/{$filename}";
-            $url = asset('storage/' . $path);
-            $qrcode = QrCode::size(400)->generate($units->link_barcode);
-            Storage::disk('public')->put($path, $qrcode);
+            $filename = public_path("img") . "/qrunits/{$asset_code}.svg";
+            $url = asset('img/qrunits/' . "{$asset_code}.svg");
+            // $url = asset('storage/' . $path);
+            $qrcode = QrCode::size(400)->generate($units->link_barcode,$filename);
+            // Storage::disk('public')->put($path, $qrcode);
             Unit::where('id', $units->id)->update(['image_barcode' => $url]);
         }
     } else {
-        // Handle case where unit is not found or link_barcode is null
         return back()->withErrors(['error' => 'Unit not found or link barcode is missing.']);
     }
 
