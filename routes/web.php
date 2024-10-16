@@ -15,29 +15,31 @@ use App\Http\Controllers\DailyMonitoringUnits;
 
 
 Route::middleware('auth')->group(
-// use App\Models\SparepartBrand;
-// use App\Models\SparepartCategory;
+    // use App\Models\SparepartBrand;
+    // use App\Models\SparepartCategory;
 
-function () {
-    Route::get('/', function () {
-        return view('auth.login');
-    })->name('dashboard');
-});
-Route::resource('projects', ProjectController::class);
-Route::resource('maintenance-types', MaintenanceTypeController::class);
-Route::resource('units', UnitController::class);
-Route::resource('drivers', DriverController::class);
-Route::resource('mechanics', MechanicController::class);
-Route::resource('suppliers', SupplierController::class);
-Route::resource('spareparts', SparepartController::class);
-Route::resource('submissions', SubmissionController::class);
-Route::resource('sparepart_categories', SparepartCategorieController::class);
-Route::resource('sparepart_brands', SparepartBrandController::class);
-Route::resource('dailymonitoringunits',DailyMonitoringUnits::class);
-Route::get('qrcode/{asset_code}', [UnitController::class, 'generate2'])->name('generate2');
+    function () {
+        Route::get('/', function () {
+            return view('auth.login');
+        })->name('dashboard');
+        Route::resource('projects', ProjectController::class);
+        Route::resource('maintenance-types', MaintenanceTypeController::class);
+        Route::resource('units', UnitController::class);
+        Route::resource('drivers', DriverController::class);
+        Route::resource('mechanics', MechanicController::class);
+        Route::resource('suppliers', SupplierController::class);
+        Route::resource('spareparts', SparepartController::class);
+        Route::resource('submissions', SubmissionController::class);
+        Route::resource('sparepart_categories', SparepartCategorieController::class);
+        Route::resource('sparepart_brands', SparepartBrandController::class);
+        Route::resource('dailymonitoringunits', DailyMonitoringUnits::class);
+        Route::get('qrcode/{asset_code}', [UnitController::class, 'generate2'])->name('generate2');
 Route::get('qrcodedriver/{nik}', [DriverController::class, 'gendriver'])->name('gendriver');
+    }
+);
+
 Route::get('/detail/{nik}', [DriverController::class, 'show'])->name('showqr');
-Route::get('/detail/{asset_code}', [UnitController::class, 'show'])->name('showunit');
+Route::get('/detail/{asset_code}', [UnitController::class, 'show'])->name('show');
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
