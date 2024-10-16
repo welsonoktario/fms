@@ -37,8 +37,7 @@ Route::middleware('auth')->group(
 Route::get('qrcodedriver/{nik}', [DriverController::class, 'gendriver'])->name('gendriver');
     }
 );
-
-Route::get('/detail/{nik}', [DriverController::class, 'show'])->name('showqr');
+Route::get('/detail/{nik}', [DriverController::class, 'show2'])->name('showqr');
 Route::get('/detail/{asset_code}', [UnitController::class, 'show'])->name('show');
 
 
