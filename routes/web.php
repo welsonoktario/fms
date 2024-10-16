@@ -34,11 +34,11 @@ Route::middleware('auth')->group(
         Route::resource('sparepart_brands', SparepartBrandController::class);
         Route::resource('dailymonitoringunits', DailyMonitoringUnits::class);
         Route::get('qrcode/{asset_code}', [UnitController::class, 'generate2'])->name('generate2');
-Route::get('qrcodedriver/{nik}', [DriverController::class, 'gendriver'])->name('gendriver');
+        Route::get('qrcodedriver/{nik}', [DriverController::class, 'gendriver'])->name('gendriver');
     }
 );
-Route::get('/detail/driver/{nik}', [DriverController::class, 'show2'])->name('showqr');
-Route::get('/detail/{asset_code}', [UnitController::class, 'show'])->name('show');
+Route::get('/driver/detail/{nik}', [DriverController::class, 'show'])->name('showqr');
+Route::get('/unit/detail/{asset_code}', [UnitController::class, 'show'])->name('show');
 
 
 require __DIR__ . '/auth.php';
