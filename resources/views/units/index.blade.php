@@ -25,7 +25,7 @@
             <td>{{ $u->name }}</td>
             <td>{{ $u->project->name }}</td>
             <td><img height="10" width="100" src="{{ Storage::url($u->image_unit) }}"></td>
-            <td><img height="100" src="{{ asset($u->image_barcode) }}"style="width: auto; height: 100px;"></td>
+            <td><img height="10" width="100" src="{{ Storage::url($u->image_barcode) }}"></td>
             <td>
               <a href="{{ route('generate2', $u->asset_code) }}" class="btn btn-sm btn-primary">Generate Barcode</a>
             </td>
