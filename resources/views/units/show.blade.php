@@ -6,7 +6,7 @@
 
   <div class="mt-4 rounded-lg p-4 shadow bg-base-100">
     <table class="table table-auto w-full">
-      <td><img height="10" width="100" src="{{ Storage::url($u->image_unit) }}"></td>
+      <td><img height="10" width="100" src="{{ Storage::url($units->image_unit) }}"></td>
       <tr>
         <th class="text-left">Code Assets:</th>
         <td>{{ $units->asset_code }}</td>
