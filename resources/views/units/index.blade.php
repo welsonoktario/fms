@@ -37,7 +37,7 @@
                                 Barcode</a>
                         </td>
                         <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-black">
-                            <a href="{{ url('unit/detail/' . $u->asset_code) }}"
+                            <a href="{{ url('units/detail/' . $u->asset_code) }}"
                                 data-drawer-show="drawer-update-product-default"
                                 aria-controls="drawer-update-product-default" data-drawer-placement="right"
                                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">

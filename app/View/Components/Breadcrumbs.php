@@ -1,16 +1,14 @@
 <?php
-
 namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Request;
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\Request;
 
 class Breadcrumbs extends Component
 {
     public array $breadcrumbs = [];
-
     /**
      * Create a new component instance.
      */
@@ -21,6 +19,11 @@ class Breadcrumbs extends Component
 
         foreach ($segments as $key => $segment) {
             if ($key < 2) {
+                continue; // Skip first two segments
+            }
+
+            // Skip the index for "detail"
+            if ($segment === 'detail') {
                 continue;
             }
 
@@ -29,12 +32,11 @@ class Breadcrumbs extends Component
                     'href' => '/',
                     'label' => 'Dashboard',
                 ];
-
                 continue;
             }
 
             if (intval($segment) > 0) {
-                continue;
+                continue; // Skip numeric segments
             }
 
             $this->breadcrumbs[] = [
@@ -52,3 +54,4 @@ class Breadcrumbs extends Component
         return view('components.breadcrumbs');
     }
 }
+

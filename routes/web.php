@@ -35,7 +35,7 @@ Route::middleware('auth')->group(
     }
 );
 Route::get('/driver/detail/{nik}', [DriverController::class, 'show'])->name('showqr');
-Route::get('/unit/detail/{asset_code}', [UnitController::class, 'show'])->name('show');
+Route::get('/units/detail/{asset_code}', [UnitController::class, 'show'])->name('show');
 
 
 require __DIR__ . '/auth.php';

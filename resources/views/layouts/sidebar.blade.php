@@ -2,11 +2,11 @@
     <label for="drawer" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu bg-base-100 w-56 h-full rounded-r-box">
         <li class="menu-title">Menu</li>
-        <li><a href="{{ route('units.index') }}">Unit</a></li>
+        <li><a href="{{ route('units.index') }}">Units</a></li>
         {{-- <li><a href="{{ route('maintenance-types.index') }}">Maintenance Types</a></li> --}}
         <li><a href="{{ route('projects.index') }}">Project</a></li>
         <li><a href="{{ route('drivers.index') }}">Driver</a></li>
-        <li><a href="{{ route('mechanics.index') }}">Mechanic</a></li>
+        {{-- <li><a href="{{ route('mechanics.index') }}">Mechanic</a></li> --}}
         <li><a href="{{ route('dailymonitoringunits.index')}}">Daily Monitoring Unit</a></li>
         {{-- <li><a href="{{ route('suppliers.index') }}">Supplier</a></li> --}}
 
