@@ -109,10 +109,10 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $asset_code)
+    public function show(string $id)
     {
-        $units = Unit::firstWhere('asset_code',$asset_code);
-        return view('units.show',compact('units'));
+        $units = Unit::find($id);
+        return view('units.show', compact('units'));
     }
 
     /**
@@ -139,28 +139,18 @@ class UnitController extends Controller
         //
     }
     public function generate2($asset_code)
-    {
-        $units = Unit::firstWhere('asset_code', $asset_code);
-
-        if ($units && !empty($units->link_barcode)) {
-            if (!$units->image_barcode) {
-                $directory = public_path('img/qrunits');
-                if (!file_exists($directory)) {
-                    mkdir($directory, 0755, true);
-                }
-                $filename = "{$asset_code}.svg";
-                $filepath = $directory . '/' . $filename;
-                $url = asset('img/qrunits/' . $filename);
-                QrCode::size(400)->generate($units->link_barcode, $filepath);
-                Unit::where('id', $units->id)->update(['image_barcode' => $url]);
-            }
-        } else {
-            return back()->withErrors(['error' => 'Unit not found or link barcode is missing.']);
-        }
-
-        return back();
+{
+    $units = Unit::firstWhere('asset_code', $asset_code);
+    if (!$units->image_barcode) {
+        $filename = "{$asset_code}.svg";
+        $path = "img/qrunits/{$filename}";
+        $url = asset('storage/' . $path);
+        $qrcode = QrCode::size(400)->generate($units->link_barcode);
+        Storage::disk('public')->put($path, $qrcode);
+        Unit::where('id', $units->id)->update(['image_barcode' => $url]);
     }
 
-
+    return back();
+}
 
 }
