@@ -109,12 +109,9 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($asset_code)
+    public function show($id)
 {
-    $units = Unit::where('asset_code', $asset_code)->first();
-    if (!$units) {
-        return redirect()->back()->withErrors('Unit not found');
-    }
+    $units = Unit::find($id);
     return view('units.show', compact('units'));
 }
 
