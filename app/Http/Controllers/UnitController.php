@@ -109,10 +109,12 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $asset_code)
     {
-        $units = Unit::find($id);
-        return view('units.show', compact('units'));
+        // $units = Unit::find($id);
+        // return view('units.show', compact('units'));
+        $units = Unit::firstWhere('asset_code',$asset_code);
+        return view('units.show',compact('units'));
     }
 
     /**
