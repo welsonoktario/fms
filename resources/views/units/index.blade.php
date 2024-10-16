@@ -41,8 +41,6 @@
                   </svg>
                   Units Detail
               </a>
-          </td>
-
               <button type="button" id="delete-karyawan" data-drawer-target="drawer-delete-product-default"
                 data-drawer-show="drawer-delete-product-default" aria-controls="drawer-delete-product-default"
                 data-drawer-placement="right"
