@@ -141,16 +141,28 @@ class UnitController extends Controller
     public function generate2($asset_code)
 {
     $units = Unit::firstWhere('asset_code', $asset_code);
-    if (!$units->image_barcode) {
-        $filename = "{$asset_code}.svg";
-        $path = "img/qrunits/{$filename}";
-        $url = asset('storage/' . $path);
+
+    // Cek jika unit tidak ada
+    if (!$units) {
+        return back()->with('error', 'Asset not found.');
+    }
+
+    $filename = "{$asset_code}.svg";
+    $path = "img/qrunits/{$filename}";
+    $url = asset('storage/' . $path);
+
+    // Cek jika image_barcode tidak ada atau jika link_barcode telah diperbarui
+    if (!$units->image_barcode || $units->link_barcode !== request()->input('link_barcode')) {
         $qrcode = QrCode::size(400)->generate($units->link_barcode);
         Storage::disk('public')->put($path, $qrcode);
         Unit::where('id', $units->id)->update(['image_barcode' => $url]);
+
+        // Jika ingin memperbarui link_barcode juga
+        $units->update(['link_barcode' => request()->input('link_barcode')]);
     }
 
-    return back();
+    return back()->with('success', 'Barcode generated successfully.');
 }
+
 
 }
