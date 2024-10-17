@@ -6,7 +6,7 @@
 
   <div class="mt-4 rounded-lg p-4 shadow bg-base-100">
     <table class="table table-auto w-full">
-      <td><img height="10" width="100" src="{{ Storage::url($units->image_unit) }}"></td>
+      <td><img height="100" width="100" src="{{ Storage::url($units->image_unit) }}"></td>
       <tr>
         <th class="text-left">Code Assets:</th>
         <td style="color: red;">{{ $units->asset_code }}</td>
@@ -62,9 +62,9 @@
         <td>{{ $units->engine_type }}</td>
       </tr>
       <tr>
-        <th class="text-left">Tax Duedate :</th>
-        <td>{{ $units->unit_tax_duedate }}</td>
-      </tr>
+        <th class="text-left">Tax Duedate:</th>
+        <td>{{ date('F j, Y', strtotime($units->unit_tax_duedate)) }}</td>
+    </tr>
 
     </table>
   </div>
