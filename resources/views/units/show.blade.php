@@ -1,6 +1,6 @@
 <x-layouts.app title="Unit Details">
-  <!-- Header Section -->
-  <div class="flex justify-between w-full items-center">
+  <!-- Sticky Header Section -->
+  <div class="flex justify-between w-full items-center bg-white p-4 shadow-md sticky top-0 z-10">
     <h1 class="text-xl font-semibold">Unit Details</h1>
     <a href="{{ route('units.index') }}" class="btn btn-sm btn-secondary">Back to List</a>
   </div>
