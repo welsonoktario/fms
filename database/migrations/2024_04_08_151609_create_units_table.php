@@ -27,11 +27,14 @@ return new class() extends Migration {
                 ->cascadeOnDelete();
             $table->string('year');
             $table->string('plate');
-            $table->string('model');
+            $table->string('name');
             $table->string('meter');
             $table->string('colour');
             $table->string('type');
-            $table->string('serial');
+            $table->string('chassis number');
+            $table->string('engine number');
+            $table->string('engine model');
+            $table->string('engine type');
             $table->string('tire_size_front');
             $table->string('tire_size_rear');
             $table->string('tire_pressure_front');

@@ -32,10 +32,11 @@ Route::middleware('auth')->group(
         Route::resource('dailymonitoringunits', DailyMonitoringUnits::class);
         Route::get('qrcode/{asset_code}', [UnitController::class, 'generate2'])->name('generate2');
         Route::get('qrcodedriver/{nik}', [DriverController::class, 'gendriver'])->name('gendriver');
+        Route::get('/units/detail/{asset_code}', [UnitController::class, 'show'])->name('show');
     }
 );
 Route::get('/driver/detail/{nik}', [DriverController::class, 'show'])->name('showqr');
-Route::get('/units/detail/{asset_code}', [UnitController::class, 'show'])->name('show');
+
 
 
 require __DIR__ . '/auth.php';
