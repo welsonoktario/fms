@@ -6,12 +6,12 @@
 
   <div class="mt-4 rounded-lg p-4 shadow bg-base-100">
     <table class="table table-auto w-full">
-      <td>
-        <img style="max-height: 300px; max-width: 300px;" src="{{ Storage::url($units->image_unit) }}">
-    </td>
       <tr>
-        <th class="text-left">Code Assets:</th>
-        <td style="color: red;">{{ $units->asset_code }}</td>
+        <img style="max-height: 200px; max-width: 200px;" src="{{ Storage::url($units->image_unit) }}">
+    </tr>
+      <tr>
+        <th class="text-left">Status Units:</th>
+        <td style="color: red;">{{ $units->status }}</td>
     </tr>
       <tr>
       <tr>
