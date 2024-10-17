@@ -43,7 +43,7 @@
 
   <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
   <script src="https://unpkg.com/select2@4.0.13/dist/js/select2.min.js"></script>
-  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" type="module"></script>=
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" type="module"></script>
 
   @if (isset($scripts))
     {{ $scripts }}
