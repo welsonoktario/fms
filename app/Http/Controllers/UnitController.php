@@ -102,7 +102,7 @@ class UnitController extends Controller
         ]);
         try {
 
-            $barcodeLink = route('show', $units->asset_code);
+            $barcodeLink = route('qrunits', $units->asset_code);
             $units->update(['link_barcode' => $barcodeLink]);
 
             return redirect()->route('units.index')->with('success', 'Unit berhasil dibuat.');
@@ -119,6 +119,11 @@ class UnitController extends Controller
 {
     $units = Unit::where('asset_code', $asset_code)->first();
     return view('units.show', compact('units'));
+}
+public function qrunits($asset_code)
+{
+    $units = Unit::where('asset_code', $asset_code)->first();
+    return view('units.qr', compact('units'));
 }
 
     /**
