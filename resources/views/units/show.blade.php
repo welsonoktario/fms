@@ -9,28 +9,32 @@
       <td><img height="10" width="100" src="{{ Storage::url($units->image_unit) }}"></td>
       <tr>
         <th class="text-left">Code Assets:</th>
+        <td style="color: red;">{{ $units->asset_code }}</td>
+    </tr>
+      <tr>
+      <tr>
+        <th class="text-left">Code Assets:</th>
         <td>{{ $units->asset_code }}</td>
       </tr>
       <tr>
-        <th class="text-left">Name / Model</th>
-        <td>{{ $units->model }}</td>
+        <th class="text-left">Name Of Unit:</th>
+        <td>{{ $units->name }}</td>
       </tr>
       <tr>
-        <th class="text-left">Project:</th>
+        <th class="text-left">Type :</th>
+        <td>{{ $units->type }}</td>
+      </tr>
+      <tr>
+        <th class="text-left">Project Location:</th>
         <td>{{ $units->project->name }}</td>
       </tr>
       <tr>
-        <th class="text-left">Plate of Unit:</th>
+        <th class="text-left">Plate:</th>
         <td>{{ $units->plate }}</td>
       </tr>
       <tr>
-        <th class="text-left">Year</th>
+        <th class="text-left">Year Of Manufacturing</th>
         <td>{{ $units->year }}</td>
-      </tr>
-
-      <tr>
-        <th class="text-left">Plate of Unit:</th>
-        <td>{{ $units->plate }}</td>
       </tr>
 
       <tr>
@@ -42,9 +46,26 @@
         <td>{{ $units->colour }}</td>
       </tr>
       <tr>
-        <th class="text-left">Serial Number :</th>
-        <td>{{ $units->serial }}</td>
+        <th class="text-left">Chassis Number :</th>
+        <td>{{ $units->chassis_number }}</td>
       </tr>
+      <tr>
+        <th class="text-left">Engine Number :</th>
+        <td>{{ $units->engine_number }}</td>
+      </tr>
+      <tr>
+        <th class="text-left">Engine Model :</th>
+        <td>{{ $units->engine_model }}</td>
+      </tr>
+      <tr>
+        <th class="text-left">Engine Type :</th>
+        <td>{{ $units->engine_type }}</td>
+      </tr>
+      <tr>
+        <th class="text-left">Tax Duedate :</th>
+        <td>{{ $units->unit_tax_duedate }}</td>
+      </tr>
+
     </table>
   </div>
 </x-layouts.app>

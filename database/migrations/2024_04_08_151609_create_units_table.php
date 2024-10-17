@@ -31,10 +31,10 @@ return new class() extends Migration {
             $table->string('meter');
             $table->string('colour');
             $table->string('type');
-            $table->string('chassis number');
-            $table->string('engine number');
-            $table->string('engine model');
-            $table->string('engine type');
+            $table->string('chassis_number');
+            $table->string('engine_number');
+            $table->string('engine_model');
+            $table->string('engine_type');
             $table->string('tire_size_front');
             $table->string('tire_size_rear');
             $table->string('tire_pressure_front');

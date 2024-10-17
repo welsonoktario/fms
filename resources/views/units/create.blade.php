@@ -78,11 +78,11 @@
         </div>
         <div class="space-y-4">
             <div>
-                <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Name / Model
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Name
                     :</label>
-                <input type="text" name="model" id="model"
+                <input type="text" name="name" id="name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Input Model of Unit" required="">
+                    placeholder="Input Name of Unit" required="">
             </div>
         </div>
         <div class="space-y-4">
@@ -114,13 +114,41 @@
         </div>
         <div class="space-y-4">
             <div>
-                <label for="serial" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Serial Number
+                <label for="chassis_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Chassis Number
                     :</label>
-                <input type="text" name="serial" id="serial"
+                <input type="text" name="chassis_number" id="chassis_number"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Input Serial Number of Unit" required="">
+                    placeholder="Input chassis_number Number of Unit" required="">
             </div>
         </div>
+        <div class="space-y-4">
+          <div>
+              <label for="engine_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Engine Number
+                  :</label>
+              <input type="text" name="engine_number" id="engine_number"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Input engine_number Number of Unit" required="">
+          </div>
+      </div>
+      <div class="space-y-4">
+        <div>
+            <label for="engine_model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Engine Model
+                :</label>
+            <input type="text" name="engine_model" id="engine_model"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Input engine_model Number of Unit" required="">
+        </div>
+    </div>
+    <div class="space-y-4">
+      <div>
+          <label for="engine_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Engine Type
+              :</label>
+          <input type="text" name="engine_type" id="engine_type"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              placeholder="Input engine_type Number of Unit" required="">
+      </div>
+  </div>
+
         <div class="space-y-4">
             <div>
                 <label for="tire_size_front" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tire
