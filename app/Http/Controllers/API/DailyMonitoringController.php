@@ -4,10 +4,14 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\Report\CreateReportRequest;
 use App\Models\DailyMonitoringUnit;
+use App\Models\Project;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\UnauthorizedException;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 
 class DailyMonitoringController extends APIController
 {
@@ -73,6 +77,21 @@ class DailyMonitoringController extends APIController
         try {
             $user = $request->user();
             $data = $request->validated();
+
+            $isInProjectRadius = Project::query()
+                ->where('id', $user->unit->project_id)
+                ->withinProjectRadius($data['location']['lat'], $data['location']['lng'])
+                ->get();  // Get the data for debugging
+
+            // Log the results to check the distance and radius values
+            foreach ($isInProjectRadius as $project) {
+                Log::channel('stderr')->info('Project Distance: ' . $project->distance_in_meters);
+                Log::channel('stderr')->info('Project Radius: ' . $project->radius);
+            }
+
+            if ($isInProjectRadius->isEmpty()) {
+                throw new Exception("Tidak bisa melakukan checklist diluar jangkauan proyek");
+            }
 
             $isReady = !$data['issue'] && collect($data['conditions'])->every(function ($condition) {
                 return !$condition['issue'];
