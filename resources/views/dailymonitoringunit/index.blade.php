@@ -19,7 +19,7 @@
               <th class="text-left">{{$dmu->id}}</th>
               <th class="text-left">{{$dmu->driver->name}}</th>
               <th class="text-left">{{$dmu->user->name}}</th>
-              <th class="text-left">{{$dmu->unit->asset_code}}</th>
+              <th class="text-left">{{$dmu->unit->year}}</th>
           </tr>
           @endforeach
         </tbody>
