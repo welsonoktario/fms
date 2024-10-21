@@ -78,24 +78,15 @@ class DailyMonitoringController extends APIController
             $user = $request->user();
             $data = $request->validated();
 
-            $isInProjectRadius = Project::query()
+            $project = Project::query()
                 ->where('id', $user->unit->project_id)
                 ->withinProjectRadius($data['location']['lat'], $data['location']['lng'])
-                ->get();  // Get the data for debugging
+                ->first();
 
-            // Log the results to check the distance and radius values
-            foreach ($isInProjectRadius as $project) {
-                Log::channel('stderr')->info('Project Distance: ' . $project->distance_in_meters);
-                Log::channel('stderr')->info('Project Radius: ' . $project->radius);
-            }
-
-            if ($isInProjectRadius->isEmpty()) {
+            if ($project['distance'] > $project->radius) {
                 throw new Exception("Tidak bisa melakukan checklist diluar jangkauan proyek");
             }
 
-            $isReady = !$data['issue'] && collect($data['conditions'])->every(function ($condition) {
-                return !$condition['issue'];
-            });
             $report = $user->unit
                 ->dailyMonitoringUnits()
                 ->create([
@@ -103,7 +94,7 @@ class DailyMonitoringController extends APIController
                     'driver_id' => $data['driver'],
                     'conditions' => $data['conditions'],
                     'issue' => $data['issue'],
-                    'status_unit' => $isReady ? 'READY' : 'NOT READY',
+                    'status_unit' => $data['status'],
                 ]);
 
             return Response::json([
