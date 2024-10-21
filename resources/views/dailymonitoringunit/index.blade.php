@@ -8,8 +8,8 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>User ID</th>
             <th>Driver ID</th>
+            <th>User ID</th>
             <th>Unit ID</th>
           </tr>
         </thead>
@@ -17,9 +17,9 @@
           @foreach ($dailymonitoringunits as $dmu)
           <tr class="hover">
               <th class="text-left">{{$dmu->id}}</th>
-              <th class="text-left">{{$dmu->user_id}}</th>
-              <th class="text-left">{{$dmu->driver_id}}</th>
-              <th class="text-left">{{$dmu->unit_id}}</th>
+              <th class="text-left">{{$dmu->driver_id->name}}</th>
+              <th class="text-left">{{$dmu->user_id->name}}</th>
+              <th class="text-left">{{$dmu->unit_id->asset_code}}</th>
           </tr>
           @endforeach
         </tbody>
