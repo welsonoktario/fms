@@ -16,10 +16,10 @@
         <tbody>
           @foreach ($dailymonitoringunits as $dmu)
           <tr class="hover">
-              <th class="text-left">{{$dmu->id}}</th>
-              <th class="text-left">{{$dmu->driver->name}}</th>
-              <th class="text-left">{{$dmu->user->name}}</th>
-              <th class="text-left">{{$dmu->unit->asset_code}}</th>
+              <th class="text-center">{{$dmu->id}}</th>
+              <th class="text-center">{{$dmu->driver->name}}</th>
+              <th class="text-center">{{$dmu->user->name}}</th>
+              <th class="text-center">{{$dmu->unit->asset_code}}</th>
           </tr>
           @endforeach
         </tbody>
