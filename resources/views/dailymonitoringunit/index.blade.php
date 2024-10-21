@@ -17,9 +17,9 @@
           @foreach ($dailymonitoringunits as $dmu)
           <tr class="hover">
               <th class="text-left">{{$dmu->id}}</th>
-              <th class="text-left">{{$dmu->driver_id->name}}</th>
-              <th class="text-left">{{$dmu->user_id->name}}</th>
-              <th class="text-left">{{$dmu->unit_id->asset_code}}</th>
+              <th class="text-left">{{$dmu->driver->name}}</th>
+              <th class="text-left">{{$dmu->user->name}}</th>
+              <th class="text-left">{{$dmu->unit->asset_code}}</th>
           </tr>
           @endforeach
         </tbody>
