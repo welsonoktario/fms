@@ -40,7 +40,7 @@ class Project extends Model
         return $query
             ->select('id', 'name', 'timezone', 'location', 'radius')
             ->selectRaw("{$haversine} AS distance_in_meters", [$lat, $lng, $lat])
-            ->havingRaw('distance_in_meters <= radius + 0.01')  // Add a small buffer for precision issues
-            ->whereNotNull('radius');  // Ensure radius is not null
+            ->whereNotNull('radius')  // Ensure radius is not null
+            ->whereRaw('distance_in_meters <= radius + 0.01');  // Add a small buffer for precision issues
     }
 }
