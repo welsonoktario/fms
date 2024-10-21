@@ -8,17 +8,19 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>Air Radiator</th>
-            <th>Air Aki</th>
+            <th>User ID</th>
+            <th>Driver ID</th>
+            <th>Unit ID</th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($dailymonitoringunits as $dmu )
+          @foreach ($dailymonitoringunits as $dmu)
           <tr class="hover">
-              <th class="text-left">{{$p->id}}</th>
-              <th>{{$dmu->radiator_coolant}}</th>
-              <th>{{$dmu->battery_electrolyte}}</th>
-            </tr>
+              <th class="text-left">{{$dmu->id}}</th>
+              <th class="text-left">{{$dmu->user_id}}</th>
+              <th class="text-left">{{$dmu->driver_id}}</th>
+              <th class="text-left">{{$dmu->unit_id}}</th>
+          </tr>
           @endforeach
         </tbody>
       </table>

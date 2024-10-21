@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DailyMonitoringUnit;
+use App\Models\Driver;
+use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DailyMonitoringUnits extends Controller
@@ -12,8 +15,13 @@ class DailyMonitoringUnits extends Controller
      */
     public function index()
     {
-        $dailymonitoringunits = DailyMonitoringUnit::all();
-        return view('dailymonitoringunit.index',compact('dailymonitoringunits'));
+        // $dailymonitoringunits = DailyMonitoringUnit::all();
+        // $units = Unit::all();
+        // $drivers = Driver::all();
+        // $users = User::all();
+        // return view('dailymonitoringunit.index',compact('dailymonitoringunits','units','users','drivers'));
+        $dailymonitoringunits = DailyMonitoringUnit::select('id', 'user_id', 'driver_id', 'unit_id')->get();
+        return view('dailymonitoringunits.index', compact('dailymonitoringunits'));
     }
 
     /**

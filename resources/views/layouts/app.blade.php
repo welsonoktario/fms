@@ -21,44 +21,26 @@
   @if (isset($styles))
     {{ $styles }}
   @endif
-
-  <!-- Custom CSS to handle horizontal overflow issues -->
-  <style>
-    body {
-      overflow-x: hidden; /* Prevent horizontal scroll */
-    }
-  </style>
 </head>
 
 <body class="font-sans antialiased">
   <main class="drawer md:drawer-open">
     <input id="drawer" type="checkbox" class="drawer-toggle" />
-
-    <!-- Sidebar -->
     <x-layouts.sidebar />
-
-    <!-- Content Section with overflow control -->
-    <div class="drawer-content flex flex-col h-screen overflow-y-auto overflow-x-hidden">
-      <!-- Navbar -->
+    <div class="drawer-content flex flex-col h-screen overflow-y-auto">
       <x-layouts.navbar />
-
-      <!-- Main content area -->
       <div class="p-4 bg-base-200 flex-1">
-        <!-- Success Message Alert -->
         @if (session()->has('success'))
           <div role="alert" class="alert alert-success !text-base-100 mb-6">
             <i class="fa-regular fa-circle-check"></i>
             <span>{{ session()->get('success') }}</span>
           </div>
         @endif
-
-        <!-- Slot for the main content -->
         {{ $slot }}
       </div>
     </div>
   </main>
 
-  <!-- Scripts -->
   <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
   <script src="https://unpkg.com/select2@4.0.13/dist/js/select2.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js" type="module"></script>
