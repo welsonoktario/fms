@@ -149,19 +149,45 @@ public function qrunits($asset_code)
     {
         //
     }
-    public function generate2($asset_code)
+//     public function generate2($asset_code)
+// {
+//     $units = Unit::firstWhere('asset_code', $asset_code);
+//     if (!$units->image_barcode) {
+//         $filename = "{$asset_code}.svg";
+//         $path = "img/qrunits/{$filename}";
+//         $url = asset('storage/' . $path);
+//         $qrcode = QrCode::size(400)->generate($units->link_barcode);
+//         Storage::disk('public')->put($path, $qrcode);
+//         Unit::where('id', $units->id)->update(['image_barcode' => $url]);
+//     }
+
+//     return back();
+// }
+public function generate2($asset_code)
 {
     $units = Unit::firstWhere('asset_code', $asset_code);
-    if (!$units->image_barcode) {
-        $filename = "{$asset_code}.svg";
-        $path = "img/qrunits/{$filename}";
-        $url = asset('storage/' . $path);
-        $qrcode = QrCode::size(400)->generate($units->link_barcode);
-        Storage::disk('public')->put($path, $qrcode);
-        Unit::where('id', $units->id)->update(['image_barcode' => $url]);
+
+    if ($units && !empty($units->link_barcode)) {
+        if (!$units->image_barcode) {
+            $filename = public_path("img/qrunits/{$asset_code}.svg");
+            $url = asset('img/qrunits/' . "{$asset_code}.svg");
+
+            $qrcode = QrCode::size(400)
+                ->generate($units->link_barcode);
+            $qrcodeWithLabel = QrCode::size(400)
+                ->label($asset_code, 16)
+                ->generate($units->link_barcode);
+
+            Storage::disk('public')->put($filename, $qrcodeWithLabel);
+
+            Unit::where('id', $units->id)->update(['image_barcode' => $url]);
+        }
+    } else {
+        return back()->withErrors(['error' => 'Unit not found or link barcode is missing.']);
     }
 
     return back();
 }
+
 
 }
