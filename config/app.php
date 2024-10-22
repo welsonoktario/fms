@@ -122,9 +122,9 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
-    'aliases' => [
-        'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
-    ],
+    // 'aliases' => [
+    //     'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
+    // ],
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
