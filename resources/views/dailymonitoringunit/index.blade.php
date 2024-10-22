@@ -1,7 +1,7 @@
 <x-layouts.app title="Daily">
   <div class="flex justify-between w-full items-center">
     <h1 class="text text-xl font-semibold">Daily Monitoring Unit</h1>
-    <a href="{{ route('dailymonitoringunits.create') }}" class="btn btn-sm btn-primary">Add</a>
+    {{-- <a href="{{ route('dailymonitoringunits.create') }}" class="btn btn-sm btn-primary">Add</a> --}}
   </div>
   <div class="mt-4 rounded-lg p-4 shadow overflow-x-auto bg-base-100">
     <table id="table" class="table table-auto w-full">

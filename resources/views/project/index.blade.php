@@ -10,6 +10,8 @@
             <th>Id Projects</th>
             <th>Name of Projects</th>
             <th>Time Zone</th>
+            <th>Location</th>
+            <th>Radius</th>
           </tr>
         </thead>
         <tbody>
@@ -18,6 +20,8 @@
               <th class="text-left">{{$p->id}}</th>
               <th>{{$p->name}}</th>
               <th>{{$p->timezone}}</th>
+              <th>{{$p->location}}</th>
+              <th>{{$p->radius}}</th>
             </tr>
           @endforeach
         </tbody>
