@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UnitController extends Controller
 {
@@ -163,5 +164,16 @@ public function qrunits($asset_code)
 
     return back();
 }
+public function cetak_pdf($asset_code)
+{
+    // Ambil unit berdasarkan asset_code yang diberikan
+    $units = Unit::where('asset_code', $asset_code)->firstOrFail(); // Jika tidak ada, akan mengembalikan 404
+
+    $pdf = PDF::loadView('units.cetak_pdf', compact('units')); // Load view untuk PDF dengan data unit
+
+    return $pdf->download('barcode_' . $asset_code . '.pdf'); // Mengirim PDF ke browser dengan nama file
+}
+
+
 
 }
