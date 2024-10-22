@@ -118,15 +118,17 @@ return [
     | Supported drivers: "file", "cache"
     |
     */
-    'providers' => [
-        Barryvdh\DomPDF\ServiceProvider::class,
-    ],
+//     'providers' => [
+//     Barryvdh\DomPDF\ServiceProvider::class,  // Pastikan service provider sudah ditulis dengan benar
+// ],
 
-    // 'aliases' => [
-    //     'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
-    // ],
+// 'aliases' => [
+//     'PDF' => Barryvdh\DomPDF\Facade::class,  // Pastikan alias ditulis dengan benar
+// ],
+
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
 ];
