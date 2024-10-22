@@ -27,6 +27,7 @@
                         <td><img height="10" width="100" src="{{ Storage::url($u->image_unit) }}"></td>
                         <td>
                           @if($u->image_barcode)
+                          <p>{{$u->asset_code}}</p>
                           <img src="{{ $u->image_barcode }}" alt="QR Code" width="100" height="100">
                           @else
                               <p>No QR Code</p>
