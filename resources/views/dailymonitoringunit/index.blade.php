@@ -8,18 +8,22 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>Driver ID</th>
-            <th>User ID</th>
+            <th>Tanggal Ceklist</th>
             <th>Unit ID</th>
+            <th>Driver ID</th>
+            <th>Status Units</th>
+
           </tr>
         </thead>
         <tbody>
           @foreach ($dailymonitoringunits as $dmu)
           <tr class="hover">
               <th class="text-center">{{$dmu->id}}</th>
-              <th class="text-center">{{$dmu->driver->name}}</th>
-              <th class="text-center">{{$dmu->user->name}}</th>
+              <th class="text-center">{{$dmu->created_at->format('d-m-Y')}}</th></th>
               <th class="text-center">{{$dmu->unit->asset_code}}</th>
+              <th class="text-center">{{$dmu->driver->name}}</th>
+              <th class="text-center">{{$dmu->status_unit}}</th>
+
           </tr>
           @endforeach
         </tbody>
