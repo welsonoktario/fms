@@ -124,7 +124,7 @@ return [
 ],
 'aliases' => [
     // Alias lainnya
-    'PDF' => Barryvdh\DomPDF\Facade::class,
+    'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
 ],
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
