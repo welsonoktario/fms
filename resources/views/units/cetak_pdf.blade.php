@@ -13,7 +13,7 @@
             text-align: center;
         }
         img {
-            width: 200px; /* Ubah ukuran sesuai kebutuhan */
+            width: 200px;
             height: auto;
         }
     </style>

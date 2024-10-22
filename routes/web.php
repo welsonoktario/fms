@@ -38,7 +38,7 @@ Route::middleware('auth')->group(
 Route::get('units/detail/{asset_code}', [UnitController::class,'show'])->name('show');
 Route::get('/driver/detail/{nik}', [DriverController::class, 'show'])->name('showqr');
 Route::get('/units/qrunits/{asset_code}', [UnitController::class, 'qrunits'])->name('qrunits');
-Route::get('/units/cetak_pdf/{asset_code}', [UnitController::class, 'cetak_pdf'])->name('units.cetak_pdf');
+Route::get('/units/cetak_pdf/{asset_code}', [UnitController::class, 'cetak_pdf'])->name('cetak_pdf');
 
 
 

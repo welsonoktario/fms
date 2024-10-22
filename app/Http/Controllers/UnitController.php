@@ -166,12 +166,11 @@ public function qrunits($asset_code)
 }
 public function cetak_pdf($asset_code)
 {
-    // Ambil unit berdasarkan asset_code yang diberikan
-    $units = Unit::where('asset_code', $asset_code)->firstOrFail(); // Jika tidak ada, akan mengembalikan 404
+    $units = Unit::where('asset_code', $asset_code)->firstOrFail();
 
-    $pdf = PDF::loadView('units.cetak_pdf', compact('units')); // Load view untuk PDF dengan data unit
+    $pdf = PDF::loadView('units.cetak_pdf', compact('units'));
 
-    return $pdf->download('barcode_' . $asset_code . '.pdf'); // Mengirim PDF ke browser dengan nama file
+    return $pdf->download('barcode_' . $asset_code . '.pdf');
 }
 
 

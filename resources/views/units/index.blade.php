@@ -53,7 +53,7 @@
                                 </svg>
                                 Units Detail
                             </a>
-                            <a href="{{ route('units.cetak_pdf', $u->asset_code) }}" class="btn btn-sm btn-success">Cetak Barcode PDF</a>
+                            <a href="{{ url('units/cetak_pdf/' . $u->asset_code) }}" class="btn btn-sm btn-success">Cetak Barcode PDF</a>
                             <button type="button" id="delete-karyawan"
                                 data-drawer-target="drawer-delete-product-default"
                                 data-drawer-show="drawer-delete-product-default"
