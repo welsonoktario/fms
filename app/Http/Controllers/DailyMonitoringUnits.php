@@ -21,6 +21,7 @@ class DailyMonitoringUnits extends Controller
         // $users = User::all();
         // return view('dailymonitoringunit.index',compact('dailymonitoringunits','units','users','drivers'));
         $dailymonitoringunits = DailyMonitoringUnit::select('id', 'user_id', 'driver_id', 'unit_id')->get();
+        dd($dailymonitoringunits);
         return view('dailymonitoringunit.index', compact('dailymonitoringunits'));
     }
 
