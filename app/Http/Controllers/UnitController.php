@@ -117,15 +117,15 @@ class UnitController extends Controller
      * Display the specified resource.
      */
     public function show($asset_code)
-{
-    $units = Unit::where('asset_code', $asset_code)->first();
-    return view('units.show', compact('units'));
-}
-public function qrunits($asset_code)
-{
-    $units = Unit::where('asset_code', $asset_code)->first();
-    return view('units.qr', compact('units'));
-}
+    {
+        $units = Unit::where('asset_code', $asset_code)->first();
+        return view('units.show', compact('units'));
+    }
+    public function qrunits($asset_code)
+    {
+        $units = Unit::where('asset_code', $asset_code)->first();
+        return view('units.qr', compact('units'));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -151,28 +151,25 @@ public function qrunits($asset_code)
         //
     }
     public function generate2($asset_code)
-{
-    $units = Unit::firstWhere('asset_code', $asset_code);
-    if (!$units->image_barcode) {
-        $filename = "{$asset_code}.svg";
-        $path = "img/qrunits/{$filename}";
-        $url = asset('storage/' . $path);
-        $qrcode = QrCode::size(400)->generate($units->link_barcode);
-        Storage::disk('public')->put($path, $qrcode);
-        Unit::where('id', $units->id)->update(['image_barcode' => $url]);
+    {
+        $units = Unit::firstWhere('asset_code', $asset_code);
+        if (!$units->image_barcode) {
+            $filename = "{$asset_code}.svg";
+            $path = "img/qrunits/{$filename}";
+            $url = asset('storage/' . $path);
+            $qrcode = QrCode::size(400)->generate($units->link_barcode);
+            Storage::disk('public')->put($path, $qrcode);
+            Unit::where('id', $units->id)->update(['image_barcode' => 'storage/' . $path]);
+        }
+
+        return back();
     }
+    public function cetak_pdf($asset_code)
+    {
+        $units = Unit::where('asset_code', $asset_code)->firstOrFail();
 
-    return back();
-}
-public function cetak_pdf($asset_code)
-{
-    $units = Unit::where('asset_code', $asset_code)->firstOrFail();
+        $pdf = PDF::loadView('units.cetak_pdf', compact('units'));
 
-    $pdf = PDF::loadView('units.cetak_pdf', compact('units'));
-
-    return $pdf->download('barcode_' . $asset_code . '.pdf');
-}
-
-
-
+        return $pdf->download('barcode_' . $asset_code . '.pdf');
+    }
 }
