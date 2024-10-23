@@ -22,8 +22,7 @@
     <h1>Barcode for Asset Code: {{ $units->asset_code }}</h1>
     <div class="barcode">
         @if($units->image_barcode)
-        <img class="image" src="{{ public_path() . '/img/qr/' . $units->asset_code . '.svg' }}">
-        <img height="10" width="100" src="{{ Storage::url($units->image_unit) }}">
+        <img height="10" width="100" src="{{ Storage::url($units->image_barcode) }}">
         @else
             <p>No Barcode Image Available</p>
         @endif
