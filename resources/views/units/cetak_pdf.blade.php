@@ -24,7 +24,7 @@
 
         @if($units->image_barcode)
         {{-- <img height="10" width="100" src="{{ Storage::url($units->image_barcode) }}"> --}}
-        <img src="{{ asset('storage/img/qrunits/' . $units->image_barcode) }}" alt="QR Code" width="100" height="100">
+        <img src="{{ Storage::url($units->image_barcode) }}" alt="QR Code" width="100" height="100">
         @else
             <p>No Barcode Image Available</p>
         @endif
