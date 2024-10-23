@@ -11,7 +11,7 @@
     }
 
     .barcode {
-      margin: 20px;
+      margin: 30px;
       text-align: center;
     }
 
@@ -19,20 +19,22 @@
       width: 200px;
       height: auto;
     }
+    h1 {
+  margin-top: 10px; /* Memberikan sedikit jarak antara gambar dan teks */
+}
   </style>
 </head>
 
 <body>
-  <h1>Barcode for Asset Code: {{ $units->asset_code }}</h1>
-  <div class="barcode">
 
+  <div class="barcode">
     @if ($units->image_barcode)
-      {{-- <img height="10" width="100" src="{{ Storage::url($units->image_barcode) }}"> --}}
       <img src="data:image/svg;base64,{{ base64_encode(file_get_contents(public_path($units->image_barcode))) }}"
-        alt="QR Code" width="100" height="100">
+        alt="QR Code" width="200" height="200">
     @else
       <p>No Barcode Image Available</p>
     @endif
+    <h1> {{ $units->asset_code }}</h1>
   </div>
 </body>
 
