@@ -158,7 +158,7 @@ public function qrunits($asset_code)
         $path = "img/qrunits/{$filename}";
         $url = asset('storage/' . $path);
         $qrcode = QrCode::size(400)->generate($units->link_barcode);
-        // Storage::disk('public')->put($path, $qrcode);
+        Storage::disk('public')->put($path, $qrcode);
         Unit::where('id', $units->id)->update(['image_barcode' => $url]);
     }
 
