@@ -150,37 +150,15 @@ public function qrunits($asset_code)
     {
         //
     }
-//     public function generate2($asset_code)
-// {
-//     $units = Unit::firstWhere('asset_code', $asset_code);
-//     if (!$units->image_barcode) {
-//         $filename = "{$asset_code}.svg";
-//         $path = "img/qrunits/{$filename}";
-//         $url = asset('storage/' . $path);
-//         $qrcode = QrCode::size(400)->generate($units->link_barcode);
-//         Storage::disk('public')->put($path, $qrcode);
-//         Unit::where('id', $units->id)->update(['image_barcode' => $url]);
-//     }
-
-//     return back();
-// }
-public function generate2(Request $request)
+    public function generate2($asset_code)
 {
-    // Validasi input
-    $validated = $request->validate([
-        'image_unit' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'asset_code' => 'required|string',
-    ]);
-    $units = Unit::firstWhere('asset_code', $validated['asset_code']);
+    $units = Unit::firstWhere('asset_code', $asset_code);
     if (!$units->image_barcode) {
-        $file = $request->file('image_unit');
-        $extension = $file->getClientOriginalExtension();
-        $filename = $validated['asset_code'] . '.' . $extension;
-        $filePath = $file->storeAs('img/qrunits', $filename, 'public');
-        $url = asset('storage/' . $filePath);
+        $filename = "{$asset_code}.svg";
+        $path = "img/qrunits/{$filename}";
+        $url = asset('storage/' . $path);
         $qrcode = QrCode::size(400)->generate($units->link_barcode);
-        $qrcodePath = "img/qrunits/{$validated['asset_code']}.svg";
-        Storage::disk('public')->put($qrcodePath, $qrcode);
+        // Storage::disk('public')->put($path, $qrcode);
         Unit::where('id', $units->id)->update(['image_barcode' => $url]);
     }
 
