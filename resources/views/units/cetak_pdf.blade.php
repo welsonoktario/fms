@@ -22,7 +22,7 @@
     <h1>Barcode for Asset Code: {{ $units->asset_code }}</h1>
     <div class="barcode">
         @if($units->image_barcode)
-        <img height="10" width="100" src="{{ Storage::url($units->image_barcode) }}">
+            <img src="{{ Storage::url('img/qrunits/' . $units->image_barcode) }}" alt="Barcode Image">
         @else
             <p>No Barcode Image Available</p>
         @endif
