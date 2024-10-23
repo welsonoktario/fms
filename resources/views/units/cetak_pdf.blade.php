@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barcode PDF - {{ isset($units[0]) ? $units[0]->asset_code : '' }}</title> <!-- Menampilkan asset_code pertama dalam collection -->
+    <title>Barcode PDF - {{ $units->asset_code }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,14 +19,14 @@
     </style>
 </head>
 <body>
-    <h1>Barcode for Asset Code: {{ isset($units[0]) ? $units[0]->asset_code : '' }}</h1> <!-- Menampilkan asset_code pertama -->
+    <h1>Barcode for Asset Code: {{ $units->asset_code }}</h1>
     <div class="barcode">
-        @foreach ($units as $u)
-            @if($u->image_barcode)
-                <img src="{{ Storage::url($u->image_barcode) }}" alt="QR Code" width="100" height="100">
-            @else
-                <p>No Barcode Image Available for {{ $u->asset_code }}</p>
-            @endif
+      @foreach ($units as $u)
+        @if($u->image_barcode)
+        <img src="{{ $u->image_barcode }}" alt="QR Code" width="100" height="100">
+        @else
+            <p>No Barcode Image Available</p>
+        @endif
         @endforeach
     </div>
 </body>
