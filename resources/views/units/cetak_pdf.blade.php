@@ -34,6 +34,8 @@
     @else
       <p>No Barcode Image Available</p>
     @endif
+    <img src="data:image/jpg;base64,{{ base64_encode(file_get_contents(public_path('storage/img/qrunits/testing.jpg'))) }}"
+    alt="Testing Image" width="50" height="50">
     <h1> {{ $units->asset_code }}</h1>
   </div>
 </body>
