@@ -22,7 +22,7 @@
                     <tr class="hover">
                         {{-- <th class="text-left">{{$u->id}}</th> --}}
                         <td>{{ $u->asset_code }}</td>
-                        <td>{{ $u->model }}</td>
+                        <td>{{ $u->name }}</td>
                         <td>{{ $u->project->name }}</td>
                         <td><img height="10" width="100" src="{{ Storage::url($u->image_unit) }}"></td>
                         <td>
