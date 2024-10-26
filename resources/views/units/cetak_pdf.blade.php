@@ -34,7 +34,7 @@
   <table>
     <tr>
       <td style="text-align: left;">
-        <img src="/img/logoakas.jpg" alt="QR Code" style="width: 64px; height: 64px;">
+        <img src="{{ $appUrl }}/img/logoakas.jpg" alt="QR Code" style="width: 64px; height: 64px;">
       </td>
       <td style="text-align: right;">
         <h1>{{ $units->asset_code }}</h1>

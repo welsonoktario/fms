@@ -167,8 +167,9 @@ class UnitController extends Controller
     public function cetak_pdf($asset_code)
     {
         $units = Unit::where('asset_code', $asset_code)->firstOrFail();
+        $appUrl = config('app.url');
 
-        $pdf = PDF::loadView('units.cetak_pdf', compact('units'));
+        $pdf = PDF::loadView('units.cetak_pdf', compact('units', 'appUrl'));
 
         return $pdf->download('barcode_' . $asset_code . '.pdf');
     }
