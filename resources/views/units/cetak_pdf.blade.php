@@ -36,8 +36,9 @@
     @endif
     {{-- <img src="{{ asset('storage/img/qrunits/testing.jpg') }}" alt="Testing"> --}}
     {{-- <img class="image" src="{{ public_path() . '/img/qrunits/testing.jpg' }}"> --}}
-    <img src="data:image/jpg;base64,{{ base64_encode(file_get_contents(public_path('/img/qrunits/testing.jpg'))) }}"
-        alt="QR Code" width="200" height="200">
+    <img src="data:image/svg;base64,{{ base64_encode(file_get_contents('public_html/fleetnl.technivine.com/storage/app/public/img/qrunits/logoakas.jpg')) }}"
+    alt="QR Code" width="200" height="200">
+
     <h1> {{ $units->asset_code }}</h1>
   </div>
 </body>
