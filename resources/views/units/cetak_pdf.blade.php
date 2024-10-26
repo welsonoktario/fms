@@ -34,9 +34,7 @@
   <table>
     <tr>
       <td style="text-align: left;">
-        <img
-          src="data:image/jpg;base64,{{ base64_encode(file_get_contents(public_path('/storage/img/qrunits/logoakas.jpg'))) }}"
-          alt="QR Code" style="width: 64px; height: 64px;">
+        <img src="/img/logoakas.jpg" alt="QR Code" style="width: 64px; height: 64px;">
       </td>
       <td style="text-align: right;">
         <h1>{{ $units->asset_code }}</h1>
