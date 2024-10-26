@@ -1,63 +1,49 @@
-// src/app/page.tsx
+<!DOCTYPE html>
+<html lang="en">
 
-import Image from 'next/image';
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barcode PDF - {{ $units->asset_code }}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
 
-interface Project {
-  title: string;
-  description: string;
-  link: string;
-}
+    .barcode {
+      margin: 30px;
+      text-align: center;
+      position: relative; /* Menambahkan posisi relatif pada kontainer */
+    }
 
-const projects: Project[] = [
-  {
-    title: 'Project 1',
-    description: 'Description of project 1',
-    link: 'https://project1.com',
-  },
-  {
-    title: 'Project 2',
-    description: 'Description of project 2',
-    link: 'https://project2.com',
-  },
-  // Add more projects as needed
-];
+    img {
+      width: 200px;
+      height: auto;
+    }
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <header className="z-10 w-full max-w-5xl text-center">
-        <h1 className="text-4xl font-bold mb-4">My Portfolio</h1>
-        <p className="text-xl">Welcome! Check out my projects below.</p>
-      </header>
+    .asset-code {
+      position: absolute; /* Menggunakan posisi absolute */
+      top: 10px; /* Jarak dari atas */
+      right: 10px; /* Jarak dari kanan */
+      background-color: white; /* Latar belakang untuk memastikan keterbacaan */
+      padding: 5px; /* Sedikit padding untuk tampilan lebih baik */
+      border: 1px solid #ccc; /* Border untuk memperjelas */
+      border-radius: 5px; /* Sudut membulat */
+    }
+  </style>
+</head>
 
-      <section className="relative text-center my-12">
-        <p>Coming soon ⏳...</p>
-        <p>Sedang Sibuk Kerja dunia Kontraktor dan Container, Besok Baru GASS!!❤️</p>
-      </section>
+<body>
 
-      <section className="mb-32 grid text-center lg:grid-cols-4 lg:text-left gap-8">
-        {projects.map((project, index) => (
-          <a
-            key={index}
-            href={project.link}
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className="mb-3 text-2xl font-semibold">
-              {project.title}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
-            </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-50">{project.description}</p>
-          </a>
-        ))}
-      </section>
+  <div class="barcode">
+    @if ($units->image_barcode)
+      <img src="data:image/svg;base64,{{ base64_encode(file_get_contents(public_path($units->image_barcode))) }}"
+        alt="QR Code" width="200" height="200">
+      <div class="asset-code">{{ $units->asset_code }}</div> <!-- Memindahkan asset_code ke sini -->
+    @else
+      <p>No Barcode Image Available</p>
+    @endif
+  </div>
+</body>
 
-      <footer className="text-center">
-        <p>by: maspimen & og</p>
-      </footer>
-    </main>
-  );
-}
+</html>
