@@ -54,7 +54,7 @@ class UnitController extends Controller
             'name' => 'required|string|max:255',
             'meter' => 'required|string|max:255',
             'colour' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
+            'provider' => 'required|string|in:DUMPTRUCK',
             'chassis_number' => 'required|string|max:255',
             'engine_number' => 'required|string|max:255',
             'engine_model' => 'required|string|max:255',
