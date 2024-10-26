@@ -13,7 +13,7 @@
     .barcode {
       margin: 30px;
       text-align: center;
-      position: relative; /* Menambahkan posisi relatif pada kontainer */
+      position: relative; /* Kontainer untuk posisi absolute */
     }
 
     img {
@@ -22,13 +22,15 @@
     }
 
     .asset-code {
-      position: absolute; /* Menggunakan posisi absolute */
-      top: 10px; /* Jarak dari atas */
-      right: 10px; /* Jarak dari kanan */
-      background-color: white; /* Latar belakang untuk memastikan keterbacaan */
-      padding: 5px; /* Sedikit padding untuk tampilan lebih baik */
-      border: 1px solid #ccc; /* Border untuk memperjelas */
+      position: absolute; /* Posisi absolute */
+      top: 5px; /* Jarak dari atas */
+      right: 5px; /* Jarak dari kanan */
+      background-color: white; /* Latar belakang untuk keterbacaan */
+      padding: 5px; /* Padding untuk tampilan */
+      border: 1px solid #ccc; /* Border */
       border-radius: 5px; /* Sudut membulat */
+      font-size: 14px; /* Ukuran font */
+      z-index: 10; /* Pastikan teks berada di atas gambar */
     }
   </style>
 </head>
@@ -39,7 +41,7 @@
     @if ($units->image_barcode)
       <img src="data:image/svg;base64,{{ base64_encode(file_get_contents(public_path($units->image_barcode))) }}"
         alt="QR Code" width="200" height="200">
-      <div class="asset-code">{{ $units->asset_code }}</div> <!-- Memindahkan asset_code ke sini -->
+      <div class="asset-code">{{ $units->asset_code }}</div> <!-- Teks di pojok kanan atas -->
     @else
       <p>No Barcode Image Available</p>
     @endif
