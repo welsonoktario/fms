@@ -34,7 +34,7 @@
     @else
       <p>No Barcode Image Available</p>
     @endif
-    <img src="{{ asset('storage/img/qrunits/testing.jpg') }}" alt="Testing">
+    {{-- <img src="{{ asset('storage/img/qrunits/testing.jpg') }}" alt="Testing"> --}}
     <h1> {{ $units->asset_code }}</h1>
   </div>
 </body>
