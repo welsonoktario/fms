@@ -27,6 +27,14 @@
       margin-left: auto;
       margin-right: auto;
     }
+
+    h1 {
+      margin-bottom: 0.5rem; /* Decrease the margin */
+    }
+
+    .barcode-container {
+      padding-top: 0.5rem; /* Decrease the padding */
+    }
   </style>
 </head>
 
@@ -35,19 +43,17 @@
     <tr>
       <td style="text-align: left;">
         <img src="data:image/svg;base64,{{ base64_encode(file_get_contents(public_path('img/logoakas.jpg'))) }}"
-          alt="QR Code" style="width: 64px; height: 64px;">
+          alt="Logo" style="width: 64px; height: 64px;">
       </td>
       <td style="text-align: right;">
         <h1>{{ $units->asset_code }}</h1>
       </td>
     </tr>
     <tr>
-      <td style="text-align: center;
-          padding-top: 1rem;" colspan="2">
+      <td style="text-align: center; padding-top: 0.5rem;" colspan="2" class="barcode-container">
         @if ($units->image_barcode)
-          {{-- <img src="/{{ $units->image_barcode }}" alt="QR Code" style="width: 100%; height: 100%"> --}}
           <img src="data:image/svg;base64,{{ base64_encode(file_get_contents(public_path($units->image_barcode))) }}"
-            alt="QR Code" style="width: 250px; height: 250px">
+            alt="Barcode" style="width: 250px; height: 250px">
         @else
           <p>No Barcode Image Available</p>
         @endif
