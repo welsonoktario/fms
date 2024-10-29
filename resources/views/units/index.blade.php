@@ -7,10 +7,10 @@
         <table id="table" class="table table-auto w-full">
             <thead>
                 <tr>
-                    {{-- <th>Id Unit</th> --}}
+
                     <th>Asset Code</th>
                     <th>Name / Model Units</th>
-                    <th>Project</th>
+                    <th>Location Project</th>
                     <th>Unit Image</th>
                     <th>Barcode Image</th>
                     <th>Generate Barcode (1st Time)</th>
@@ -20,7 +20,7 @@
             <tbody>
                 @foreach ($units as $u)
                     <tr class="hover">
-                        {{-- <th class="text-left">{{$u->id}}</th> --}}
+
                         <td>{{ $u->asset_code }}</td>
                         <td>{{ $u->name }}</td>
                         <td>{{ $u->project->name }}</td>
