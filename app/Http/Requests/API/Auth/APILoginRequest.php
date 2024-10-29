@@ -64,11 +64,9 @@ class APILoginRequest extends FormRequest
         }
 
         $unit = $user->unit;
-        $unit->load('project');
 
         return [
             'user' => $user->only(['id', 'email', 'name', 'role', 'status']),
-            'unit' => $unit,
             'token' => $user->createToken('auth_token')->plainTextToken
         ];
     }
