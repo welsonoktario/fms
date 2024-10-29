@@ -56,6 +56,13 @@ class APILoginRequest extends FormRequest
         // Create and return Sanctum token
         /** @var \App\Models\User $user **/
         $user = Auth::user();
+
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed'),
+            ]);
+        }
+
         $unit = $user->unit;
         $unit->load('project');
 
