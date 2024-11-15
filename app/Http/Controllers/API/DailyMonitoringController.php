@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\UnauthorizedException;
 
@@ -58,6 +59,8 @@ class DailyMonitoringController extends APIController
             /** @var \App\Models\User $user **/
             $user = $request->user();
             $dailyMonitoringUnit->load(['unit', 'user', 'driver']);
+            $photoPath = $dailyMonitoringUnit->photo;
+            $dailyMonitoringUnit->photo = Storage::temporaryUrl($photoPath, now()->addMinutes(1));
 
             if ($dailyMonitoringUnit->user_id != $user->id) {
                 throw new UnauthorizedException('Unathorized', 403);
@@ -74,11 +77,7 @@ class DailyMonitoringController extends APIController
 
     public function store(CreateReportRequest $request)
     {
-        Log::channel('api')->info('masukkk');
-
         try {
-            Log::channel('api')->info('mulai proses');
-
             $user = $request->user();
             $data = $request->validated();
 
@@ -109,8 +108,6 @@ class DailyMonitoringController extends APIController
                     'photo' => $pohotoPath,
                 ]);
 
-            Log::channel('api')->info('selesai proses');
-
             return Response::json([
                 'status' => 'ok',
                 'data' => $report
@@ -136,6 +133,12 @@ class DailyMonitoringController extends APIController
                 ->whereDate('created_at', today('Asia/Jakarta'))
                 ->orderBy('created_at', 'DESC')
                 ->get();
+            $dailyMonitoringUnits = $dailyMonitoringUnits->map(function ($report) {
+                $photoPath = $report->photo;
+                $report->photo = Storage::temporaryUrl($photoPath, now()->addMinutes(1));
+
+                return $report;
+            });
 
             return Response::json([
                 'status' => 'ok',
