@@ -3,6 +3,7 @@
 namespace App\Http\Requests\API\Report;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class CreateReportRequest extends FormRequest
 {
@@ -28,11 +29,12 @@ class CreateReportRequest extends FormRequest
             'conditions.*.name' => 'required|string', // Name must be a string
             'conditions.*.value' => 'required|string', // Value must be a string
             'driver' => 'required|integer', // Driver must be an integer
-            'status' => 'required|string|in:READY,NOT READY',
+            'status' => 'required|string|in:READY,NOT READY,NEEDS MAINTENANCE',
             'issue' => 'nullable|string', // Issues must be a string
             'location' => 'required|array',
             'location.lat' => 'required|numeric',
-            'location.lng' => 'required|numeric'
+            'location.lng' => 'required|numeric',
+            'photo' => ['required', 'file', File::image()],
         ];
     }
 
@@ -64,6 +66,8 @@ class CreateReportRequest extends FormRequest
             'location.lat.numeric' => 'The latitude must be a numeric value.',
             'location.lng.required' => 'The longitude field is required.',
             'location.lng.numeric' => 'The longitude must be a numeric value.',
+            'photo.required' => 'Foto unit tidak boleh kosong.',
+            'photo.file' => 'Foto harus berupa file'
         ];
     }
 }
