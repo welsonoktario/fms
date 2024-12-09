@@ -103,7 +103,7 @@ class DailyMonitoringController extends APIController
                     'user_id' => $user->id,
                     'driver_id' => $data['driver'],
                     'conditions' => $data['conditions'],
-                    'issue' => $data['issue'],
+                    'issue' => $data['issue'] ?? null,
                     'status_unit' => $data['status'],
                     'photo' => $pohotoPath,
                 ]);
