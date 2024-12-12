@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-     /**
+    /**
      * Display the login view.
      */
     public function create(): View
@@ -24,11 +24,17 @@ class AuthController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $user = $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $route = route('user.dashboard', absolute: false);
+
+        if ($user->role === 'Super Admin' || $user->role === 'Admin') {
+            $route = route('dashboard', absolute: false);
+        }
+
+        return redirect()->intended($route);
     }
 
     /**

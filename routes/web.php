@@ -13,12 +13,12 @@ use App\Http\Controllers\SparepartCategorieController;
 use App\Http\Controllers\SparepartBrandController;
 use App\Http\Controllers\DailyMonitoringUnits;
 
-
 Route::middleware('auth')->group(
     function () {
         Route::get('/', function () {
             return view('welcome');
         })->name('dashboard');
+
         Route::resource('projects', ProjectController::class);
         Route::resource('maintenance-types', MaintenanceTypeController::class);
         Route::resource('units', UnitController::class);
@@ -32,15 +32,14 @@ Route::middleware('auth')->group(
         Route::resource('dailymonitoringunits', DailyMonitoringUnits::class);
         Route::get('qrcode/{asset_code}', [UnitController::class, 'generate2'])->name('generate2');
         Route::get('qrcodedriver/{nik}', [DriverController::class, 'gendriver'])->name('gendriver');
-
     }
 );
-Route::get('units/detail/{asset_code}', [UnitController::class,'show'])->name('show');
+
+Route::get('units/detail/{asset_code}', [UnitController::class, 'show'])->name('show');
 Route::get('/driver/detail/{nik}', [DriverController::class, 'show'])->name('showqr');
 Route::get('/units/qrunits/{asset_code}', [UnitController::class, 'qrunits'])->name('qrunits');
 Route::get('/units/cetak_pdf/{asset_code}', [UnitController::class, 'cetak_pdf'])->name('cetak_pdf');
 
-
-
+require __DIR__ . '/user.php';
 
 require __DIR__ . '/auth.php';

@@ -26,7 +26,13 @@
 <body class="font-sans antialiased">
   <main class="drawer md:drawer-open">
     <input id="drawer" type="checkbox" class="drawer-toggle" />
-    <x-layouts.sidebar />
+    @auth
+      @if (auth()->user()->role === 'Admin' || auth()->user()->role === 'Super Admin')
+        <x-layouts.sidebar />
+      @else
+        <x-layouts.sidebar-user />
+      @endif
+    @endauth
     <div class="drawer-content flex flex-col h-screen overflow-y-auto">
       <x-layouts.navbar />
       <div class="p-4 bg-base-200 flex-1">

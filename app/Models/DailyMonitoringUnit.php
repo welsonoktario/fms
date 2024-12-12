@@ -26,16 +26,21 @@ class DailyMonitoringUnit extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function driver()
     {
-        return $this->belongsTo(Driver::class,'driver_id');
+        return $this->belongsTo(Driver::class, 'driver_id');
     }
 
     public function unit()
     {
-        return $this->belongsTo(Unit::class,'unit_id');
+        return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
     }
 }
