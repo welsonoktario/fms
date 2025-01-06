@@ -21,6 +21,10 @@ class Project extends Model
     {
         return $this->hasMany(Unit::class);
     }
+    public function dailyMonitoringUnits()
+    {
+        return $this->hasMany(DailyMonitoringUnit::class);
+    }
 
     /**
      * Scope a query to filter projects that are within their own radius from a given point.
