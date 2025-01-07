@@ -51,6 +51,7 @@
           <th>Unit ID</th>
           <th>Driver ID</th>
           <th>Proyek</th>
+          <th>Kondisi</th>
           <th>Status Units</th>
 
         </tr>
@@ -63,6 +64,15 @@
             <th class="text-center">{{ $dmu->unit->asset_code }}</th>
             <th class="text-center">{{ $dmu->driver->name }}</th>
             <th class="text-center">{{ $dmu->project->name }}</th>
+            <th class="text-center">
+              @if (is_array($dmu->conditions))
+                  @foreach ($dmu->conditions as $condition)
+                      <div>{{ $condition['name'] }}: {{ $condition['value'] }}</div>
+                  @endforeach
+              @else
+                  {{ $dmu->conditions }}
+              @endif
+          </th>
             <th class="text-center">{{ $dmu->status_unit }}</th>
 
           </tr>

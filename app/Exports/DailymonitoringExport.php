@@ -27,7 +27,7 @@ class DailymonitoringExport implements FromQuery, WithHeadings, WithMapping
     public function query()
     {
         $query = DailyMonitoringUnit::query()
-            ->with(['project'])
+            ->with(['project', 'unit', 'driver'])
             ->when($this->project != 'all', function ($q) {
                 return $q->where('project_id', $this->project);
             });
@@ -51,6 +51,7 @@ class DailymonitoringExport implements FromQuery, WithHeadings, WithMapping
             'ID DRIVER',
             'PROYEK',
             'STATUS UNIT',
+            'CONDITIONS',
         ];
     }
 
@@ -59,6 +60,13 @@ class DailymonitoringExport implements FromQuery, WithHeadings, WithMapping
      */
     public function map($daily): array
     {
+
+        $conditions = is_array($daily->conditions)
+            ? collect($daily->conditions)
+                ->map(fn($condition) => $condition['name'] . ': ' . $condition['value'])
+                ->implode(', ')
+            : 'N/A';
+
         return [
             $daily->id,
             Carbon::parse($daily->created_at)->format('d M Y'),
@@ -66,6 +74,8 @@ class DailymonitoringExport implements FromQuery, WithHeadings, WithMapping
             $daily->driver->name,
             $daily->project->name,
             $daily->status_unit,
+            $conditions,
         ];
     }
 }
+
