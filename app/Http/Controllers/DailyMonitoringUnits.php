@@ -22,14 +22,26 @@ class DailyMonitoringUnits extends Controller
         // $dailymonitoringunits = DailyMonitoringUnit::query('id', 'user_id','driver_id', 'unit_id','project_id','issue','conditions','status_unit')->when($project != 'all', function );
         // return view('dailymonitoringunit.index', compact('dailymonitoringunits','projects'));
         $project = $request->get('project', 'all');
-        $dailymonitoringunits = DailyMonitoringUnit::query('id', 'user_id','driver_id', 'unit_id','project_id','issue','conditions','status_unit')
-        ->when($project != 'all', function ($q) use ($project) {
-            return $q->where('project_id', $project);
-        })
-        ->with(['project'])
-        ->get();
+        $dari = $request->get('dari');
+        $ke = $request->get('ke');
+
+        $query = DailyMonitoringUnit::query()
+            ->with(['project'])
+            ->when($project != 'all', function ($q) use ($project) {
+                return $q->where('project_id', $project);
+            });
+
+        if ($dari && $ke) {
+            $query = $query->whereBetween('created_at', [$dari, $ke]);
+        }
+
+        $query = $query->orderBy('created_at', 'DESC')
+            ->orderBy('id', 'ASC');
+
+        $dailymonitoringunits = $query->get();
         $projects = Project::all();
-        return view('dailymonitoringunit.index', compact('dailymonitoringunits','projects'));
+
+        return view('dailymonitoringunit.index', compact('dailymonitoringunits', 'projects'));
     }
 
     /**
@@ -90,7 +102,12 @@ class DailyMonitoringUnits extends Controller
         // $namaproyek = $proyek->nama;
         // $proyek::Proyek::find($id);
         // $proyeks = Proyek::all();
-        // $filename = 'absensi '
+        $filename = 'dailymonitoring';
+
+        if ($project != 'all') {
+            $project = Project::find($project);
+            $filename .= "_{$project->name}";
+        }
 
         /* $lemburs = [];
         foreach ($absensis as $a) {
@@ -100,8 +117,9 @@ class DailyMonitoringUnits extends Controller
                 ->first();
         } */
         // return Excel::download(new DailyMonitoringUnit($project, $dari, $ke), "dailymonitoring_$project.xlsx");
-        return Excel::download(new DailymonitoringExport($project, $dari, $ke), "dailymonitoring_$project.xlsx");
+        // return Excel::download(new DailymonitoringExport($project, $dari, $ke), "dailymonitoring_$project.xlsx");
+        $xlsx = new DailymonitoringExport($project->id, $dari, $ke);
 
-
+        return $xlsx->download("$filename.xlsx");
     }
 }

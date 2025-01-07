@@ -3,13 +3,12 @@
 namespace App\Exports;
 
 use App\Models\DailyMonitoringUnit;
-use App\Models\Project;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+
 class DailymonitoringExport implements FromQuery, WithHeadings, WithMapping
 {
     use Exportable;
@@ -23,31 +22,27 @@ class DailymonitoringExport implements FromQuery, WithHeadings, WithMapping
         $this->project = $project;
         $this->dari = $dari;
         $this->ke = $ke;
-
-        return $this;
     }
-    public function query()
-{
-    $dailymonitoringunits = DailyMonitoringUnit::query()
-        ->when($this->project != 'all', function ($q) {
-            return $q->where('project_id', $this->project);
-        })
-        ->with(['project'])
-        ->orderBy('created_at', 'DESC')
-        ->orderBy('id', 'ASC');
 
-    if ($this->dari && $this->ke) {
-        $dailymonitoringunits = DailyMonitoringUnit::whereBetween('created_at', [$this->dari, $this->ke])
+    public function query()
+    {
+        $query = DailyMonitoringUnit::query()
+            ->with(['project'])
             ->when($this->project != 'all', function ($q) {
                 return $q->where('project_id', $this->project);
-            })
-            ->with(['project'])
+            });
+
+        if ($this->dari && $this->ke) {
+            $query = $query->whereBetween('created_at', [$this->dari, $this->ke]);
+        }
+
+        $query = $query->orderBy('created_at', 'DESC')
             ->orderBy('id', 'ASC');
+
+        return $query;
     }
 
-    return $dailymonitoringunits;
-}
-public function headings(): array
+    public function headings(): array
     {
         return [
             'ID',
@@ -58,6 +53,10 @@ public function headings(): array
             'STATUS UNIT',
         ];
     }
+
+    /**
+     * @param DailyMonitoringUnit $daily
+     */
     public function map($daily): array
     {
         return [
@@ -69,6 +68,4 @@ public function headings(): array
             $daily->status_unit,
         ];
     }
-
-
 }
