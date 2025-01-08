@@ -43,4 +43,8 @@ class DailyMonitoringUnit extends Model
     {
         return $this->belongsTo(Project::class);
     }
+    public function project()
+    {
+        return $this->belongsTo(Project::class,'project_id');
+    }
 }

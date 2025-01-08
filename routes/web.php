@@ -39,6 +39,8 @@ Route::get('units/detail/{asset_code}', [UnitController::class, 'show'])->name('
 Route::get('/driver/detail/{nik}', [DriverController::class, 'show'])->name('showqr');
 Route::get('/units/qrunits/{asset_code}', [UnitController::class, 'qrunits'])->name('qrunits');
 Route::get('/units/cetak_pdf/{asset_code}', [UnitController::class, 'cetak_pdf'])->name('cetak_pdf');
+// Route::get('/dailymonitorings/cetak_excel', [DailyMonitoringUnit::class,'cetak_excel']);
+Route::get('/dailymonitorings/cetak_excel', [DailyMonitoringUnits::class, 'cetak_excel']);
 
 require __DIR__ . '/user.php';
 

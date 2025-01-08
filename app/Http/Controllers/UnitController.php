@@ -5,24 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Driver;
 use App\Models\Project;
 use App\Models\Unit;
-use App\Models\User;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\User;
 
 class UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //     $searchTerm = $request->input('searchTerm', '');
-        // $projects = Project::where('name', 'like', "%$searchTerm%")->get();
-        $units = Unit::all();
+        $project = $request->get('project', 'all');
+        $units = Unit::query()
+        ->when($project != 'all', function ($q) use ($project) {
+            return $q->where('project_id', $project);
+        })
+        ->with(['project'])
+        ->get();
         $projects = Project::all();
         $users = User::all();
         return view('units.index', compact('units', 'projects', 'users'));
